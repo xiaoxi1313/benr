@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name></display-name>
+	
+	
+<!-- 	<servlet>
+		<servlet-name>jcaptcha</servlet-name>
+		<servlet-class>com.newvery.servlet.ImageCaptchaServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jcaptcha</servlet-name>
+		<url-pattern>/jcaptcha</url-pattern>
+	</servlet-mapping> -->
+	
+	<!-- 
+	<filter>
+		<filter-name>basefilter</filter-name>
+		<filter-class>com.newvery.web.filter.BaseFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>basefilter</filter-name> 
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	 -->
+	<!-- -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/config/spring/*.xml</param-value>
+	</context-param> 
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener> 
+	
+	<listener>
+		<listener-class>
+			com.newvery.servlet.listener.SystemParameterListener
+		</listener-class>
+<!--  		<listener-class>
+			com.newvery.servlet.listener.CacheListener
+		</listener-class> -->
+	</listener> 
+	
+	<listener>
+	  	<listener-class>com.newvery.web.filter.OnlineUserListener</listener-class>
+	</listener>
+ 	
+	<filter>
+		<filter-name>struts-prepare</filter-name>
+		<filter-class>
+			com.newvery.ueditor.MyStrutsFilter
+		</filter-class>
+	</filter>
+
+	
+
+	<filter-mapping>
+		<filter-name>struts-prepare</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	
+
+	<!-- Session超时定义,单位为分钟 -->
+	<session-config>
+
+		<session-timeout>60</session-timeout>
+
+	</session-config>
+
+	<!-- 定义默认访问页 -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.action</welcome-file>
+	</welcome-file-list>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/page.tld</taglib-uri>
+			<taglib-location>/WEB-INF/page.tld</taglib-location>
+		</taglib>
+		
+		<taglib>
+			<taglib-uri>/WEB-INF/sitepage.tld</taglib-uri>
+			<taglib-location>/WEB-INF/sitepage.tld</taglib-location>
+		</taglib>
+		<!-- <jsp-property-group> 
+                  <url-pattern>*.jsp</url-pattern> 
+                  <trim-directive-whitespaces>true</trim-directive-whitespaces> 
+        </jsp-property-group> -->
+	</jsp-config>
+	
+
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.html</location>
+	</error-page>
+	
+</web-app>

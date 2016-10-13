@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	<resultMap id="annotate" type="AnnotateRecord" > 
+		<id column="articleId" property="articleId"/> 
+		<id column="content" property="content"/> 
+		<id column="deleted" property="deleted"/> 
+		<id column="createTime" property="createTime"/> 
+		<id column="userId" property="userId"/> 
+		<id column="type" property="type"/>
+		<id column="saved" property="saved"/>  
+		
+		<association property="user" select="findUserByPK" column="userId" javaType="UserRecord"></association>
+	</resultMap>
+	
+	<insert id="insertAnnotate" parameterType="AnnotateRecord" >
+		insert into tb_annotate 
+			(articleId,content,deleted,createTime,userId,type,saved) 
+		values
+			(#{articleId},#{content},#{deleted},#{createTime},#{userId},#{type},#{saved})
+	</insert>
+	
+	<update id="updateAnnotate" parameterType="AnnotateRecord">
+		update tb_annotate set 
+			articleId=#{articleId},content=#{content},deleted=#{deleted},userId=#{userId},type=#{type},saved=#{saved}
+		where 
+			id = #{id}#
+	</update>
+	
+	<update id="deleteAnnotate" parameterType="int">
+		update tb_annotate set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<select id="findAnnotateByArticleId" parameterType="int" resultMap="annotate">
+		select * from tb_annotate where articleId = #{articleId}
+	</select>
+	
+	<select id="findAnnotateById" parameterType="int" resultMap="annotate">
+		select * from tb_annotate where id = #{id}
+	</select>
+	
+	<select id="findAnnotate" parameterType="java.util.HashMap" resultMap="annotate">
+		select * from tb_annotate  
+		<where>  
+		    deleted=0 
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="articleId > 0">  
+	           and (articleId = #{articleId})    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userIds != null">
+	        	AND userId  IN(
+	        	<foreach item="val" index="index" collection="userIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <if test="type > 0">  
+	           and (type = #{type})    
+	        </if>
+	    </where>
+		ORDER BY id DESC
+	</select>
+	
+	<select id="listTodayAnnotate" parameterType="java.util.HashMap" resultType="AnnotateRecord">
+		select * from tb_annotate 
+		where 
+			deleted = 0 and TO_DAYS(createTime) = TO_DAYS(now()) 
+			<if test="userId > 0">  
+	           and userId = #{userId}   
+	        </if> 
+			<if test="type > 0">  
+	           and (type = #{type})    
+	        </if> 
+		order by id
+	</select>
+</mapper>

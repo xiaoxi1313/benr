@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertTagCategory" useGeneratedKeys="true" keyProperty="id" parameterType="TagCategoryRecord">
+		insert into tb_tag_category 
+		(createTime,modifyTime,description,name,locale,deleted,alias,userId) 
+		values
+		(#{createTime},#{modifyTime},#{description},#{name},#{locale},#{deleted},#{alias},#{userId})
+	</insert>
+	
+	<update id="updateTagCategory" parameterType="TagCategoryRecord">
+		update tb_tag_category set 
+		modifyTime=#{modifyTime},description=#{description},name=#{name},locale=#{locale},alias=#{alias},userId=#{userId} 
+		where 
+		id = #{id}#
+	</update>
+	
+	<delete id="deleteTagCategory" parameterType="int">
+		update tb_tag_category set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</delete>
+	
+	<select id="listTagCategory" resultType="TagCategoryRecord">
+		select * from tb_tag_category where deleted=0 order by id
+	</select>
+	
+	<select id="findTagCategoryByPK" parameterType="int" resultType="TagCategoryRecord">
+		select * from tb_tag_category where id = #{value}#
+	</select>
+	
+	<select id="findTagCategoryByName" parameterType="String" resultType="TagCategoryRecord">
+		select * from tb_tag_category where name = #{name} and deleted=0
+	</select>
+	
+	<select id="countTagCategoryRecord" parameterType="String" resultType="int">
+		select count(name) from tb_tag_category where name = #{value}#
+	</select>
+</mapper>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="app topadminhome">
+<head>  
+  <meta charset="utf-8" />
+  <title>本然数据库</title>
+  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/icon.css" type="text/css" />
+  <link rel="stylesheet" href="css/font.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" /> 
+  <link rel="stylesheet" href="js/datepicker/bootstrap-datetimepicker.min.css" type="text/css"> 
+  <link rel="stylesheet" href="js/calendar/bootstrap_calendar.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="js/ie/html5shiv.js"></script>
+    <script src="js/ie/respond.min.js"></script>
+    <script src="js/ie/excanvas.js"></script>
+  <![endif]-->  
+</head>
+<body class="" >
+  <section class="vbox">
+    <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+      <div class="navbar-header aside-md dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class="navbar-brand">
+          <img src="images/logo.jpg" class="m-r-sm" alt="scale">
+          <span class="hidden-nav-xs">本然数据库</span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="fa fa-cog"></i>
+        </a>
+      </div>
+      
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border" placeholder="请搜索...">            
+          </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="thumb-sm avatar pull-left">
+              <img src="images/a0.png" alt="...">
+            </span>
+            张小帅 <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight">            
+            <li>
+              <span class="arrow top"></span>
+              <a href="#">个人资料设置</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+            </li>
+          </ul>
+        </li>
+      </ul>      
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+        <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">          
+          <section class="vbox">
+            <section class="w-f scrollable">
+              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+                <div class="clearfix wrapper dk nav-user hidden-xs">
+                  <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <span class="thumb avatar pull-left m-r">                        
+                        <img src="images/a0.png" class="dker" alt="...">
+                        <i class="on md b-black"></i>
+                      </span>
+                      <span class="hidden-nav-xs clear">
+                        <span class="block m-t-xs">
+                          <strong class="font-bold text-lt">张小帅</strong> 
+                          <b class="caret"></b>
+                        </span>
+                        <span class="text-muted text-xs block">高级研究员</span>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">                      
+                      <li>
+                        <span class="arrow top hidden-nav-xs"></span>
+                        <a href="#">个人资料设置</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>                
+
+
+                <!-- nav -->                 
+                <nav class="nav-primary hidden-xs">
+                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">主菜单</div>
+                  <ul class="nav nav-main" data-ride="collapse">
+                    <li>
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-stack icon">
+                        </i>
+                        <span class="font-bold">我的项目</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li >
+                          <a href="allmember.html" class="auto"> <i class="i i-dot"></i>
+
+                            <span>查看全部成员</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="favorite.html" class="auto"> <i class="i i-dot"></i>
+
+                            <span>收藏夹</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="auto">
+                        <i class="i i-docs icon">
+                        </i>
+                        <span class="font-bold">全部项目</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-lab icon">
+                        </i>
+                        <span class="font-bold">系统管理</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li >
+                          <a href="cataloguemanagement.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>分类管理</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="tagmanagement.html" class="auto">                                                                                   
+                            <i class="i i-dot"></i>
+
+                            <span>标签管理</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="usermanagement.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>用户管理</span>
+                          </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="active">
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-statistics icon">
+                        </i>
+                        <span class="font-bold">数据分析</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li>
+                          <a href="chart.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>热点走向</span>
+                          </a>
+                        </li>
+                        <li class="active">
+                          <a href="chart-compare.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>数据比较</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="chart-distribution.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>热点分布</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li >
+                      <a href="userlog.html" class="auto">
+                        <i class="i i-grid2 icon">
+                        </i>
+                        <span class="font-bold">用户登录记录</span>
+                      </a>
+                      </li>
+                  </ul>
+                  <div class="line dk hidden-nav-xs"></div>
+                 
+                  </ul>
+                </nav>
+                <!-- / nav -->
+              </div>
+            </section>
+            
+            <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+                <i class="i i-logout"></i>
+              </a>
+              <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+                <i class="i i-circleleft text"></i>
+                <i class="i i-circleright text-active"></i>
+              </a>
+            </footer>
+          </section>
+        </aside>        <!-- /.aside -->
+        <section id="content">
+          <section class="vbox">
+            <section class="scrollable padder">
+              <div class="m-b-md">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3 class="m-b-none">数据分析 &nbsp;&frasl;&nbsp; 数据比较</h3>
+                    <small>您可以通过输入标签来比较结果</small>
+                  </div>
+                </div>
+              </div>
+              
+              <section class="col-md-9 row">
+              <section class="panel panel-default">
+                  <header class="panel-heading">数据比较工具</header>
+                  <div class="panel-body panel-table">
+                  <div class="row wrapper selectrow b-b" style="padding-bottom: 10px;padding-top: 0px;">
+                  <div class="m-b-xs prename" style="padding-left: 15px;">
+                  <span class="selectname longname">标题</span>
+                  
+                  <div class="btn-group m-r titleinput">
+                  <input type="text" class="form-control">
+                  </div>
+                  
+                  </div>
+                  </div>
+                  
+                  <div class="row wrapper selectrow b-b" style="padding-bottom: 10px;">
+                  <div class="m-b-xs prename" style="padding-left: 15px;">
+                  <span class="selectname longname">比较源</span>
+                  
+                  <div class="btn-group m-r titleinput">
+                  <button href="#" class="btn btn-s-md btn-success btn-preset" style="margin-left: 15px;">
+                  <i class="fa fa-plus text"></i>
+                  <span class="text">添加比较源</span>
+                  </button>
+                  </div>
+                  
+                  </div>
+                  </div>
+                  
+                  <div class="table-responsive selecttable">
+                  <table style="width:100%;">
+                  <thead>
+                  <tr class="chooselist">
+                  <th width="30"><label class="checkbox m-t-none m-b-none i-checks" style="margin-left: 6px;"><input type="checkbox"><i style="margin-left: 0px;"></i></label></th>
+                  <th style="padding:15px 0;">
+                   <div class="m-b-xs prename">
+                   <span class="selectname longname">分析范围选择</span>
+                   
+                   <div class="btn-group m-r">
+                   <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                   <span class="dropdown-label">请选择收藏夹</span> 
+                   <span class="caret"></span>
+                   </button>
+                   <ul class="dropdown-menu dropdown-select">
+                   <li class="active"><a href="#"><input type="radio" name="d-s-r" checked="">请选择收藏夹</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹01</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹02</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹03</a></li>
+                   </ul>
+                   </div>
+                   
+                   <div class="btn-group m-r">
+                   <button data-toggle="modal" class="btn btn-sm btn-default" href="#modal-select-subfav">
+                   <span class="dropdown-label">请选择子收藏夹</span> 
+                   </button>
+                   </div>
+                   
+                   </div>
+                   
+                   <div class="row wrapper selectrow">
+                    <div class="m-b-xs prename">
+                    <span class="selectname longname">分析时间段</span>
+                    <div class="btn-group m-r input-group date form_date" data-date="" data-date-format="" data-link-field="" data-link-format="yyyy-mm-dd">
+                     <input class="form-control" size="16" type="text" value="" readonly="">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                     </div>
+                    <div class="btn-group m-r input-group date form_date" data-date="" data-date-format="" data-link-field="" data-link-format="yyyy-mm-dd">
+                     <input class="form-control" size="16" type="text" value="" readonly="">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                     </div>
+                    </div>
+                    </div>
+                   
+                   <div class="row wrapper selectrow" >
+                   <div class="m-b-xs prename" style="margin-bottom: 0;">
+                   <span class="selectname longname">标签</span>
+                   <div class="btn-group m-r titleinput">
+                   <input type="text" class="form-control">
+                   </div>                 
+                   </div>
+                   </div>
+                   
+                   </th>
+                   <th style="text-align: center;"><a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></th>
+                   </tr>
+                  <tr class="chooselist">
+                  <th width="30"><label class="checkbox m-t-none m-b-none i-checks" style="margin-left: 6px;"><input type="checkbox"><i style="margin-left: 0px;"></i></label></th>
+                  <th style="padding:15px 0;">
+                   <div class="m-b-xs prename">
+                   <span class="selectname longname">分析范围选择</span>
+                   
+                   <div class="btn-group m-r">
+                   <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                   <span class="dropdown-label">请选择收藏夹</span> 
+                   <span class="caret"></span>
+                   </button>
+                   <ul class="dropdown-menu dropdown-select">
+                   <li class="active"><a href="#"><input type="radio" name="d-s-r" checked="">请选择收藏夹</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹01</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹02</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">收藏夹03</a></li>
+                   </ul>
+                   </div>
+                   
+                   
+                   <div class="btn-group m-r">
+                   <button data-toggle="modal" class="btn btn-sm btn-default" href="#modal-select-subfav">
+                   <span class="dropdown-label">请选择子收藏夹</span> 
+                   </button>
+                   </div>
+                   </div>
+                   
+                   <div class="row wrapper selectrow">
+                    <div class="m-b-xs prename">
+                    <span class="selectname longname">分析时间段</span>
+                    <div class="btn-group m-r input-group date form_date" data-date="" data-date-format="" data-link-field="" data-link-format="yyyy-mm-dd">
+                     <input class="form-control" size="16" type="text" value="" readonly="">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                     </div>
+                    <div class="btn-group m-r input-group date form_date" data-date="" data-date-format="" data-link-field="" data-link-format="yyyy-mm-dd">
+                     <input class="form-control" size="16" type="text" value="" readonly="">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                     </div>
+                    </div>
+                    </div>
+                   
+                   <div class="row wrapper selectrow" >
+                   <div class="m-b-xs prename" style="margin-bottom: 0;">
+                   <span class="selectname longname">标签</span>
+                   <div class="btn-group m-r titleinput">
+                   <input type="text" class="form-control">
+                   </div>                 
+                   </div>
+                   </div>
+                   
+                   </th>
+                   <th style="text-align: center;"><a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></th>
+                   </tr>
+                   </thead>
+                   </table>
+                   </div>
+                   
+                  
+
+                  <div class="row wrapper selectrow search-btn">
+                  <a href="#" class="btn btn-s-md btn-primary">开始计算</a>
+                  <a href="#" class="btn btn-s-md btn-primary">重置</a>
+                  </div>
+
+                  </div>
+                  </section>
+                  <section class="panel panel-default">
+                   <header class="panel-heading font-bold">标签-扁平化和图形化的比较结果</header>
+                   <div class="panel-body">
+                   <div id="flot-chart"  style="height:240px"></div>
+                   </div>                                                
+                  </section>
+              </section>        
+
+<section class="scrollable col-md-3 siderbar">
+<ul class="list-group gutter list-group-lg list-group-sp sortable m-b-none">  
+ <li class="list-group-item col-md-12 sortable p-t-none savepanel" draggable="true">
+ <div class="panel panel-default portlet-item m-b-none">
+ <header class="panel-heading">
+ <ul class="nav nav-pills pull-right">
+ <li><a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a></li>
+ </ul>
+ 保存                    
+ </header>
+ <div class="panel-body">
+ <a href="#" class="btn btn-success">保存</a>
+ <a href="#" class="btn btn-success">导出</a>
+ </div></div>
+ </li> 
+                        
+ <li class="list-group-item col-md-12 sortable p-t-none" draggable="true">
+ <div class="panel panel-default portlet-item m-b-none">
+ <header class="panel-heading">
+ <ul class="nav nav-pills pull-right">
+ <li><a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a></li>
+ </ul>
+ 已保存的分析结果                    
+ </header>
+
+   <div class="panel-body project t-t">
+   <div class="pull-right media-xs text-center text-muted">
+   <strong class="h4">2014</strong><br>
+   <small class="label bg-light">2月19日</small>
+   </div>
+   <a href="#" class="h5 text-success">oppo信息情报分析03</a>
+   <div>
+   <a class="label label-info tag">扁平化</a>
+   <a class="label label-info tag">拟物化</a>
+   </div>
+   </div>
+
+   <div class="panel-body project t-t">
+   <div class="pull-right media-xs text-center text-muted">
+<strong class="h4">2014</strong><br>
+<small class="label bg-light">2月19日</small>
+   </div>
+   <a href="#" class="h5 text-success">oppo信息情报分析02</a>
+   <div>
+   <a class="label label-info tag">扁平化</a>
+   <a class="label label-info tag">拟物化</a>
+   </div>
+   </div>
+
+   <div class="panel-body project t-t">
+   <div class="pull-right media-xs text-center text-muted">
+<strong class="h4">2014</strong><br>
+<small class="label bg-light">2月19日</small>
+   </div>
+   <a href="#" class="h5 text-success">oppo信息情报分析01</a>
+   <div>
+   <a class="label label-info tag">扁平化</a>
+   <a class="label label-info tag">拟物化</a>
+   </div>
+   </div>
+
+                                         
+ </div>
+ </li>
+ </ul>    
+ </section>  
+            </section>
+          </section>
+          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+        </section>
+      </section>
+    </section>
+  </section>
+  <script src="js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/bootstrap.js"></script>
+  <!-- App -->
+  <script src="js/app.js"></script>  
+  <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="js/sortable/jquery.sortable.js"></script>
+  <script src="js/datepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script> 
+  <script src="js/datepicker/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <!-- Sparkline Chart -->
+  <script src="js/charts/sparkline/jquery.sparkline.min.js"></script>
+  <!-- Easy Pie Chart -->
+  <script src="js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+  <!-- Flot -->
+  <script src="js/charts/flot/jquery.flot.min.js"></script>
+  <script src="js/charts/flot/jquery.flot.tooltip.min.js"></script>
+  <script src="js/charts/flot/jquery.flot.resize.js"></script>
+  <script src="js/charts/flot/jquery.flot.orderBars.js"></script>
+  <script src="js/charts/flot/jquery.flot.pie.min.js"></script>
+  <script src="js/charts/flot/jquery.flot.grow.js"></script>
+  <script src="js/charts/flot/demo.js"></script>
+  <script src="js/app.plugin.js"></script>
+  
+  <div class="modal fade" id="modal-select-subfav" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="m-t-none">选择子收藏夹</h3>
+          <small>您可以在此选择数据比较范围的子收藏夹。</small>
+        </div>
+          <div class="modal-body wrapper-lg">
+            <div class="row">
+              <div class="col-sm-12">
+              <form class="form-horizontal" method="get">
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">子收藏夹选择</label>
+                                     <div class="col-sm-9">
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第1期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第2期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第3期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第4期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第5期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第6期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第7期</label></div>
+                                     <div class="checkbox i-checks"><label><input type="checkbox" value=""><i></i>oppo信息情报-第8期</label></div>
+                                     </div>
+                                     </div>
+                                   <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    
+                                                <div class="checkbox m-t-lg">
+                                                
+                                                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="重置中..."><strong>重置</strong></button>
+                                                
+                                                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="确定中..."><strong>确定</strong></button>
+                                                   
+                                                </div>
+                                              </form>
+                              </div>
+              
+            </div>          
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  
+<script type="text/javascript">
+  $('.form_date').datetimepicker({
+      language: 'zh-CN',
+      format: 'yyyy-mm-dd',
+      weekStart: 1,
+      todayBtn: 1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
+      forceParse: 0
+  });
+</script>
+
+</body>
+</html>

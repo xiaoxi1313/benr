@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+    <resultMap id="article" type="ArticleRecord" > 
+		<id column="id" property="id"/> 
+		<result column="createTime" property="createTime"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="serial" property="serial"/>
+		<result column="content" property="content"/>
+		<result column="title" property="title"/>
+		<result column="status" property="status"/>
+		<result column="userId" property="userId"/>
+		<result column="parentCategoryId" property="parentCategoryId"/>
+		<result column="childCategoryId" property="childCategoryId"/>
+		<result column="titleImage" property="titleImage"/>
+		<result column="summary" property="summary"/>
+		<result column="sourceLink" property="sourceLink"/>
+		<result column="praiseUpNum" property="praiseUpNum"/>
+		<result column="praiseDownNum" property="praiseDownNum"/>
+		<result column="parentCategoryName" property="parentCategoryName"/>
+		<result column="childCategoryName" property="childCategoryName"/>
+		
+		<association property="user" select="findUserByPK" column="userId" javaType="UserRecord"></association>
+		
+		
+		<!-- 
+		<association property="parentCategory" select="findCategoryByPK" column="parentCategoryId" javaType="CategoryRecord"></association>
+		<association property="childCategory" select="findCategoryByPK" column="childCategoryId" javaType="CategoryRecord"></association>
+		 -->
+	</resultMap>
+	
+	<insert id="insertArticle" useGeneratedKeys="true" keyProperty="id" parameterType="ArticleRecord">
+		insert into tb_article 
+		(createTime,modifyTime,content,title,locale,deleted,status,userId,parentCategoryId,childCategoryId,titleImage,serial,
+		summary,sourceLink,praiseUpNum,praiseDownNum,parentCategoryName,childCategoryName) 
+		values
+		(#{createTime},#{modifyTime},#{content},#{title},#{locale},#{deleted},#{status},#{userId},#{parentCategoryId},#{childCategoryId},#{titleImage},#{serial},
+		#{summary},#{sourceLink},#{praiseUpNum},#{praiseDownNum},#{parentCategoryName},#{childCategoryName})
+	</insert>
+	
+	<select id="getNextAritcleId" parameterType="long" resultType="long">
+		select id from tb_article where id>#{v} and deleted = 0 limit 0,1
+	</select>
+	
+	<update id="updateArticle" parameterType="ArticleRecord">
+		update tb_article set 
+		modifyTime=#{modifyTime},content=#{content},title=#{title},locale=#{locale},status=#{status},userId=#{userId},parentCategoryId=#{parentCategoryId},childCategoryId=#{childCategoryId},
+		titleImage=#{titleImage},serial=#{serial},summary=#{summary},praiseUpNum=#{praiseUpNum},
+		praiseDownNum=#{praiseDownNum},sourceLink=#{sourceLink},createTime=#{createTime},deleted=#{deleted},
+		parentCategoryName=#{parentCategoryName},childCategoryName=#{childCategoryName},
+		modifyTime=NOW()
+		where 
+			id = #{id}#
+	</update>
+	
+	<update id="updateArticleStatus" parameterType="ArticleRecord">
+		update tb_article 
+		set 
+			status=#{status},modifyTime=now()  
+		where 
+			id = #{id}
+	</update>
+	
+	<update id="updateArticleSummary" parameterType="ArticleRecord">
+		update tb_article 
+		set 
+			summary=#{summary},modifyTime=now()  
+		where 
+			id = #{id}
+	</update>
+	
+	<update id="deleteArticle" parameterType="int">
+		update tb_article set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<delete id="physicsDeleteArticle" parameterType="int">
+	    delete from tb_article 
+		where 
+		id=#{id}# 
+	</delete>
+	
+	<update id="batchDeleteArticle" parameterType="java.util.HashMap">
+	    update tb_article set  
+			deleted = 1 
+		where 
+		id IN(
+       		<foreach item="val" index="index" collection="articleIdList" separator=",">
+          		#{val}
+  			</foreach>)
+	</update>
+	
+	<update id="batchPhysicsDeleteArticle" parameterType="java.util.HashMap">
+	    delete from tb_article =  
+		where 
+		id IN(
+       		<foreach item="val" index="index" collection="articleIdList" separator=",">
+          		#{val}
+  			</foreach>)
+	</update>
+	
+	<select id="listArticle" resultMap="article">
+		select * from tb_article where deleted=0 order by id desc
+	</select>
+	
+	<select id="listArticleByFavoriteId" parameterType="int" resultMap="article">
+		select a.* from tb_article a, tb_article_favorite f where a.deleted=0 and f.deleted=0 and a.id=f.articleId and f.childFavoriteId=#{favoriteId} order by f.position, a.id
+	</select>
+	
+	<select id="listArticleByFavoriteGroupId" parameterType="int" resultMap="article">
+		SELECT
+			a.*
+		FROM
+			tb_article a, tb_article_favorite_group ag
+		WHERE
+			a.deleted = 0 and a.id = ag.articleId and ag.favoriteGroupId = #{value}#
+	</select>
+	
+	<!-- 收藏夹下未分组的文章 -->
+	<select id="listUnGroupedArticleByFavoriteId" parameterType="int" resultMap="article">
+		SELECT
+			a.*
+		FROM
+			tb_article a, tb_article_favorite af, tb_article_favorite_group afg
+		WHERE
+			a.id = af.articleId and a.id = afg.articleId and a.deleted = 0 and af.deleted = 0
+			and a.id NOT IN 
+				(SELECT 
+						articleId
+				 FROM
+						tb_article_favorite_group
+				 WHERE
+						favoriteGroupId IN
+							(
+								SELECT
+									id	
+								FROM
+									tb_favorite_group
+								WHERE
+									favoriteId = #{value}#
+							)
+				)
+	</select>
+	
+	<select id="listArticleByStatus" parameterType="int" resultType="ArticleRecord">
+		select * from tb_article where deleted=0 and status=#{status} order by id desc
+	</select>
+	
+	<select id="findArticleByPK" parameterType="int" resultMap="article">
+		select * from tb_article where id = #{value}#
+	</select>
+	
+	<select id="countArticleRecord" parameterType="String" resultType="int">
+		select count(name) from tb_article where name = #{value}#
+	</select>
+	
+	<select id="countArticleByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(id) from tb_article  
+		<where>  
+		    1=1 
+		    <choose>
+		        <when test="deleted>0">
+		             and deleted=1
+		        </when>
+		        <otherwise>
+		             and deleted=0 
+		        </otherwise>
+		    </choose>
+			<if test="title!=null and title!=''">  
+	           and (title like '%${title}%')    
+	        </if>
+	        <if test="searchTitle != null">
+	         and (title like '%${searchTitle}%' or id in (select tat.articleId from tb_article_tag tat,tb_tag tt where tat.tagId = tt.id and tt.name=#{searchTitle}))    
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="parentCategoryId > 0">  
+	           and (parentCategoryId = #{parentCategoryId})    
+	        </if>
+	        <if test="childCategoryId > 0">  
+	           and (childCategoryId = #{childCategoryId})    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userIds != null">
+	        	AND userId  IN(
+	        	<foreach item="val" index="index" collection="userIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <choose>
+	        	<when test="status > 0">
+	        		<choose>
+			        	<when test="status >= 99">
+			        		AND status in (1, 2)
+			        	</when>
+			        	<otherwise>
+			        		AND status = #{status} 
+			        	</otherwise>
+			        </choose>
+	        	</when>
+	        </choose>
+	    </where>
+	</select>
+	<select id="findArticleByPage" parameterType="java.util.HashMap" resultMap="article">
+		select * from tb_article  
+		<where>  
+		    1=1 
+		    <choose>
+		        <when test="deleted>0">
+		             and deleted=1
+		        </when>
+		        <otherwise>
+		             and deleted=0 
+		        </otherwise>
+		    </choose>
+			<if test="title!=null and title!=''">  
+	           and (title like '%${title}%')    
+	        </if>
+	         <if test="searchTitle != null">
+	         and (title like '%${searchTitle}%' or id in (select tat.articleId from tb_article_tag tat,tb_tag tt where tat.tagId = tt.id and tt.name=#{searchTitle}))    
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="parentCategoryId > 0">  
+	           and (parentCategoryId = #{parentCategoryId})    
+	        </if>
+	        <if test="childCategoryId > 0">  
+	           and (childCategoryId = #{childCategoryId})    
+	        </if>
+	        <if test="startDate!=null">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userIds != null">
+	        	AND userId  IN(
+	        	<foreach item="val" index="index" collection="userIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <if test="nextId != null">
+	        	 <![CDATA[ and id>#{nextId}]]>
+	        </if>
+	        <if test="prevId != null">
+	        	 <![CDATA[ and id<#{prevId}]]>
+	        </if>
+	        <if test="nextTime != null">
+	        	 <![CDATA[ and createTime>=#{nextTime}]]>
+	        </if>
+	        <if test="prevTime != null">
+	        	 <![CDATA[ and createTime<#{prevTime}]]>
+	        </if>
+	        <choose>
+	        	<when test="status > 0">
+	        		<choose>
+			        	<when test="status >= 99">
+			        		AND status in (1, 2)
+			        	</when>
+			        	<otherwise>
+			        		AND status = #{status} 
+			        	</otherwise>
+			        </choose>
+	        	</when>
+	        </choose>
+	    </where>
+	    <choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY createTime DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<select id="countArticleByConditionForChartDistribution" parameterType="java.util.HashMap" resultType="int">
+		select 
+	    	count(a.id)
+	    from 
+	    	tb_article a, tb_article_tag at
+	    	<if test="parentFavoriteId > 0 || childFavoriteId > 0 || childFavoritIds != null">
+	    	    , tb_article_favorite af
+	    	</if>
+	    	<where>  
+	    	     a.deleted = 0 and at.deleted = 0 and a.id = at.articleId 
+				<if test="tagId > 0"> 
+		             and at.tagId = #{tagId}
+		        </if>
+		        
+		        <if test="childFavoritIds != null">
+		         	and af.childFavoriteId in(#{childFavoritIds})
+		         </if>
+		          
+		         <if test="parentFavoriteId > 0">
+		            and af.parentFavoriteId = #{parentFavoriteId}
+		        </if>
+		        <if test="childFavoriteId > 0">
+		            and af.childFavoriteId = #{childFavoriteId}
+		        </if>
+		        <if test="startDate!=null">  
+		           <![CDATA[and a.createTime >= #{startDate}]]> 
+		        </if>  
+		        <if test="endDate!=null">   
+		           <![CDATA[and a.createTime <= #{endDate}]]> 
+		        </if>
+	        </where>
+	</select>
+	
+	<select id="findArticleByConditionForChartDistribution" parameterType="java.util.HashMap" resultMap="article">
+	    select 
+	    	a.* 
+	    from 
+	    	tb_article a, tb_article_tag at
+	    	<if test="parentFavoriteId > 0 || childFavoriteId > 0 || childFavoritIds != null">
+	    	    , tb_article_favorite af
+	    	</if>
+	    	<where>  
+	    	     a.deleted = 0 and at.deleted = 0 and a.id = at.articleId 
+				<if test="tagId > 0"> 
+		             and at.tagId = #{tagId}
+		        </if>
+		        
+		        <if test="childFavoritIds != null">
+		         	and af.childFavoriteId in(#{childFavoritIds})
+		         </if>
+		          
+		         <if test="parentFavoriteId > 0">
+		            and af.parentFavoriteId = #{parentFavoriteId}
+		        </if>
+		        <if test="childFavoriteId > 0">
+		            and af.childFavoriteId = #{childFavoriteId}
+		        </if>
+		        <if test="startDate!=null">  
+		           <![CDATA[and a.createTime >= #{startDate}]]> 
+		        </if>  
+		        <if test="endDate!=null">   
+		           <![CDATA[and a.createTime <= #{endDate}]]> 
+		        </if>
+	        </where>
+	        
+	        <if test="parentFavoriteId > 0 || childFavoriteId > 0">
+	        	group BY a.id 
+	        </if>
+			 ORDER BY
+				 a.id desc
+			<if test="page!=null">
+				<trim prefix="LIMIT" prefixOverrides=",">  
+	           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+	        	</trim> 
+	        </if>
+	</select>
+	
+	
+	<select id="countFavoriteArticleByPage" parameterType="java.util.HashMap" resultType="int">
+		select 
+			count(a.id) 
+		from
+			tb_article a
+		<where>  
+		    a.deleted = 0 
+		    <if test="favoriteId != null">
+		    	and id in(select articleId from tb_article_favorite  where childFavoriteId = #{favoriteId})
+		    </if>
+		    <if test="title!=null and title!=''">  
+	           and (a.title like '%${title}%')    
+	        </if>
+	        <if test="parentCategoryId > 0">  
+	           and (a.parentCategoryId = #{parentCategoryId})    
+	        </if>
+	        <if test="parentCategoryIds != null ">  
+	             and a.parentCategoryId IN(
+	        	<foreach item="val" index="index" collection="parentCategoryIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <if test="childCategoryId > 0">  
+	           and (a.childCategoryId = #{childCategoryId})    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and a.createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and a.createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="childCategoryIdStr">
+	        		and childCategoryId in(#{childCategoryIdStr})
+	        </if>
+	        <if test="allowCategoryGroupId != null">
+	        	<!-- and (childCategoryId in(select categoryId from tb_group_category where userGroupId = #{allowCategoryGroupId}) or parentCategoryId in(select parentCategoryId from tb_group_category where categoryId = -1 and userGroupId = #{allowCategoryGroupId} )) -->
+	        	and parentCategoryId in(select parentCategoryId from tb_group_category where userGroupId = #{allowCategoryGroupId})
+	        </if>
+	        <if test="tagId != null">
+	        	and id in(select articleId from tb_article_tag where tagId = #{tagId})
+	        </if>
+	        
+	    </where>
+	</select>
+	
+	<select id="findFavoriteArticleByPage" parameterType="java.util.HashMap" resultMap="article">
+		select 
+			a.* 
+		from
+			tb_article a
+		<where>  
+		    a.deleted = 0 
+		    <if test="favoriteId != null">
+		    	and id in(select articleId from tb_article_favorite  where childFavoriteId = #{favoriteId})
+		    </if>
+		    <if test="title!=null and title!=''">  
+	           and (a.title like '%${title}%')    
+	        </if>
+	        <if test="parentCategoryId > 0">  
+	           and (a.parentCategoryId = #{parentCategoryId})    
+	        </if>
+	        <if test="childCategoryId > 0">  
+	           and (a.childCategoryId = #{childCategoryId})    
+	        </if>
+	        
+	        <if test="parentCategoryIds != null ">  
+	             and a.parentCategoryId IN(
+	        	<foreach item="val" index="index" collection="parentCategoryIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <if test="childCategoryIds != null ">  
+	             and a.childCategoryId IN(
+	        	<foreach item="val" index="index" collection="childCategoryIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and a.createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and a.createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="childCategoryIdStr">
+	        		and childCategoryId in(#{childCategoryIdStr})
+	        </if>
+	        <if test="allowCategoryGroupId != null">
+	        	<!-- and (childCategoryId in(select categoryId from tb_group_category where userGroupId = #{allowCategoryGroupId}) or parentCategoryId in(select parentCategoryId from tb_group_category where categoryId = -1 and userGroupId = #{allowCategoryGroupId} )) -->
+	        	and parentCategoryId in(select parentCategoryId from tb_group_category where userGroupId = #{allowCategoryGroupId})
+	        </if>
+	        <if test="tagId != null">
+	        	and id in(select articleId from tb_article_tag where tagId = #{tagId})
+	        </if>
+	    </where>
+	    <choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY a.id DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<select id="findAboutArticleByPage" parameterType="java.util.HashMap" resultMap="article">
+	
+	   select * from tb_article 
+		where id != #{id} and id in 
+		(select articleId from tb_article_tag where articleId != #{id} and tagId in 
+			(select tagId from tb_article_tag a where articleId = #{id} )) limit 0,#{page.numPerPage} 
+	</select>
+	
+	<select id="beforeAfterArticleList" parameterType="long" resultMap="article">
+		 select * from tb_article where deleted = 0 and 
+		 <![CDATA[ id > #{v} - 15 and id < #{v} + 15  ]]>  
+	</select>
+	
+	<select id="findLast3BuyArticle" parameterType="int" resultType="ArticleTagRecord">
+		select tagId from tb_article_tag where articleId = #{v} limit 0,3;
+	</select>
+	
+	</mapper>

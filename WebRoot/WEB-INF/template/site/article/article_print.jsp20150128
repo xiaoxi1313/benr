@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="pages" uri="/WEB-INF/sitepage.tld"%>
+<%@ page import="com.newvery.web.helper.UrlHelper"%>
+<%@ page import="com.newvery.utils.TimeUtil"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+<style>  
+body{  
+font-family:SimSun; 
+font-family:SimHei;
+font-family:SimKai; 
+font-size:14px;  
+}  
+</style>  
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></meta>
+
+  <title>本然数据库</title>
+  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+  <link rel="shortcut icon" type="image/x-icon" href="<%=UrlHelper.getHomeUrl()%>favicon.ico"/>
+
+</head>
+<body class="" style="font-family:'SimSun'">
+  <section class="vbox">
+    
+    <section>
+      <section class="hbox stretch">
+
+        <section id="content">
+          <section class="hbox stretch">
+            <section>
+              <section class="vbox">
+                <section class="scrollable padder">              
+                  <section class="col-md-12 row m-b">
+                          <section class="vbox">
+                          <!-- 
+                           <div class="wrapper dk p-b-none clearfix " >
+                            <h5 class="m-n"> 上海本然研创咨询有限公司<br>www.origintrend.com</h5>
+                          	 <img src="<%=UrlHelper.getHomeUrl()%>resources/common/images/logo.jpg" style="float: right"/>
+                           </div>
+                           <hr /> -->
+                          <div class="wrapper dk p-b-none clearfix " >
+						 
+                                          <a href="#" data-toggle="class" class="pull-left m-r-sm"><i class="fa fa-star-o fa-lg text"></i><i class="fa fa-star text-warning fa-lg text-active"></i></a>
+                                          <h3 class="m-n"> <s:property value="article.title" /></h3> 
+                                        </div>
+                                        <div style="page-break-after: always">
+                                          <div class="block clearfix wrapper b-b">
+                                           	<h5 class="m-t-md"> 发布时间： <span class="text-danger"><s:date name="article.createTime" format="yyyy-MM-dd HH:mm:ss" /></span></h5>
+                                          </div>
+                                         <div class="wrapper no-padder">
+                                         <s:iterator value="tagList" id="tag" status="u">
+                                          <a class="label label-info tag"><s:property value="name" /></a>
+                                          </s:iterator>
+                                         </div>
+                                          <div class="post-container wrapper b-b" >
+                                          <s:if test="article.titleImage != null && article.titleImage != '' ">
+                                          	<img src="<s:property value="article.titleImage"/>" alt="..." class="m-b-md"/>
+                                          </s:if>
+                                         	<h5 class="m-n"> 摘要：</h5>
+                                         	<s:property value="article.summary" escape="false" />
+                                            <hr />
+                                            <h5 class="m-n"> 原文：</h5>
+                                          	<s:property value="article.content" escape="false" />
+                                          </div>
+                                        </div>
+                                        <hr />
+                                        <div class="col-md-12 m-t-md" >
+                                        <div class="panel panel-default portlet-item m-b-none">
+                                        <header class="panel-heading">
+                                       	 <h5 class="m-n"> 批注：</h5>                  
+                                        </header>
+                                        <s:if test="annotate != null">                                   
+                                        	<article class="b-b">
+	                                            <div class="panel-body">
+	                                            
+	                                            <div class="media-body">
+	                                            <div class="pull-right media-xs text-center text-muted">
+	                                           
+	                                            </div>
+	                                            <div class="block writetime">标注时间：<s:date name="annotate.createTime" format="yyyy年MM月dd日" /></div>
+	                                            </div>
+	                                            <div class="postil m-t-sm t-t"><s:property value="annotate.content"/></div>
+	                                            </div>
+                                            </article>
+                                         </s:if>   
+                                         	<h5 class="m-n"> 原文链接：  </h5>  
+                                         	
+                                         	<a href="<s:property value="article.sourceLink"/>"><s:property value="article.sourceLink"/></a>           
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- 
+                                        <div class="col-md-12 m-t-md" >
+                                        <div class="panel panel-default portlet-item m-b-none">
+                                        <header class="panel-heading">
+                                        
+                                        热门标签                    
+                                        </header>
+                                        <s:if test="hotTag != null">                                     
+                                        <article class="b-b">
+                                            <div class="panel-body">
+                                            
+                                            <div class="media-body">
+                                            <div class="pull-right media-xs text-center text-muted">
+                                            
+                                            </div>
+                                            <div class="block writetime">标注时间：<s:date name="hotTag.createTime" format="yyyy年MM月dd日" /></div>
+                                            </div>
+                                            <div class="postil m-t-sm t-t"><s:property value="hotTag.content"/></div>
+                                            </div>
+                                            </article>
+                                           </s:if>              
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 m-t-md" >
+                                        <div class="panel panel-default portlet-item m-b-none">
+                                        <header class="panel-heading">
+                                        
+                                       趋势标签                    
+                                        </header>
+                                        <s:if test="trendTag != null">                                        
+                                        <article class="b-b">
+                                            <div class="panel-body">
+                                            
+                                            <div class="media-body">
+                                            <div class="pull-right media-xs text-center text-muted">
+                                            
+                                            </div>
+                                            <div class="block writetime">标注时间：<s:date name="trendTag.createTime" format="yyyy年MM月dd日" /></div>
+                                            </div>
+                                            <div class="postil m-t-sm t-t"><s:property value="trendTag.content"/></div>
+                                            </div>
+                                            </article>
+                                          </s:if>               
+                                        </div>
+                                        </div>
+                                         -->
+                                    </section>
+
+                  </section>
+
+                   
+
+                                                     
+                </section>
+              </section>
+            </section>
+            
+
+          </section>
+          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+        </section>
+      </section>
+    </section>
+  </section>
+</body>
+</html>

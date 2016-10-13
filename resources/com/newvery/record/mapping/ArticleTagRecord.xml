@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertArticleTag" parameterType="ArticleTagRecord" >
+		insert into tb_article_tag 
+		(articleId,userId,tagId,deleted,createTime,modifyTime) 
+		values
+		(#{articleId},#{userId},#{tagId},#{deleted},#{createTime},#{modifyTime})
+	</insert>
+	
+	<delete id="deleteArticleTagById" parameterType="int">
+		delete from tb_article_tag where id=#{id}# 
+	</delete>
+	
+	<delete id="deleteArticleTagByArticleId" parameterType="int">
+		delete from tb_article_tag where articleId=#{articleId}# 
+	</delete>
+	
+	<delete id="deleteArticleTagByArticleAndTagId" parameterType="java.util.HashMap">
+		delete from tb_article_tag where articleId=#{articleId} and tagId=#{tagId}
+	</delete>
+	
+	<select id="findArticleTagByArticleId" parameterType="int" resultType="ArticleTagRecord">
+		select * from tb_article_tag where articleId = #{articleId} and deleted=0
+	</select>
+	
+	<select id="findArticleTagByArticleAndTagId" parameterType="java.util.HashMap" resultType="ArticleTagRecord">
+		select * from tb_article_tag where articleId = #{articleId} and tagId=#{tagId} and deleted=0
+	</select>
+</mapper>

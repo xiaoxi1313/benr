@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+    <!-- 要调用的类 -->
+	<bean id="articleStatusCheckJob" class="com.newvery.job.ArticleStatusCheckJob"></bean>
+	<bean id="tagStatusCheckJob" class="com.newvery.job.TagStatusCheckJob"></bean>
+	
+	<!-- 定义调用的类与方法 -->
+	<bean id="articleStatusCheckTask" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+		<!-- 类 -->
+		<property name="targetObject">
+			<ref bean="articleStatusCheckJob"/>
+		</property>
+		
+		<!-- 方法 -->
+		<property name="targetMethod">
+			<value>checkStatus</value>
+		</property>
+	</bean>
+	
+	<bean id="tagStatusCheckTask" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+		<!-- 类 -->
+		<property name="targetObject">
+			<ref bean="tagStatusCheckJob"/>
+		</property>
+		
+		<!-- 方法 -->
+		<property name="targetMethod">
+			<value>checkStatus</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="articleStatusCheckTimerTask"
+	    class="org.springframework.scheduling.timer.ScheduledTimerTask">
+	    <property name="timerTask" ref="articleStatusCheckTask" />
+	    <property name="period" value="1800000" />
+	</bean>
+	
+	<bean id="tagStatusCheckTimerTask"
+	    class="org.springframework.scheduling.timer.ScheduledTimerTask">
+	    <property name="timerTask" ref="tagStatusCheckTask" />
+	    <property name="period" value="18000000" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+	    <property name="scheduledTimerTasks">
+	        <list>
+	            <ref local="articleStatusCheckTimerTask"/>
+	            <ref local="tagStatusCheckTimerTask"/>
+	        </list>
+	    </property>
+	</bean>
+</beans>
+

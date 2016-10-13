@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+
+	<resultMap id="assignCategory" type="AssignCategoryRecord" > 
+		<id column="id" property="id"/> 
+		<result column="userId" property="userId"/>
+		<association property="category" select="findCategoryByPK" column="categoryId" javaType="CategoryRecord"></association>
+	</resultMap>
+	
+	<insert id="insertAssignCategory" parameterType="AssignCategoryRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user_assign_category(userId,categoryId)values(#{userId},#{categoryId}) 
+	</insert>
+	
+	<select id="countUserAssignCategory" parameterType="long" resultType="int">
+		select count(id) from tb_user_assign_category where userId = #{userId} 
+	</select>
+	<select id="findUserAssignCategoryByPage" parameterType="java.util.Map" resultMap="assignCategory">
+		select id,userId,categoryId from tb_user_assign_category where userId = #{userId} 
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<delete id="deleteAssignCategoryByUserId" parameterType="long">
+		delete from tb_user_assign_category where userId = #{v}
+	</delete>
+	
+</mapper>

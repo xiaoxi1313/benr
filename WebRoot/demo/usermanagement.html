@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+  <meta charset="utf-8" />
+  <title>本然数据库</title>
+  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/icon.css" type="text/css" />
+  <link rel="stylesheet" href="css/font.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" /> 
+  <link rel="stylesheet" href="js/datepicker/bootstrap-datetimepicker.min.css" type="text/css"> 
+  <link rel="stylesheet" href="js/calendar/bootstrap_calendar.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="js/ie/html5shiv.js"></script>
+    <script src="js/ie/respond.min.js"></script>
+    <script src="js/ie/excanvas.js"></script>
+  <![endif]-->  
+</head>
+<body class="" >
+  <section class="vbox">
+    <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+      <div class="navbar-header aside-md dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class="navbar-brand">
+          <img src="images/logo.jpg" class="m-r-sm" alt="scale">
+          <span class="hidden-nav-xs">本然数据库</span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="fa fa-cog"></i>
+        </a>
+      </div>
+      
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border" placeholder="请搜索...">            
+          </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="thumb-sm avatar pull-left">
+              <img src="images/a0.png" alt="...">
+            </span>
+            张小帅 <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight">            
+            <li>
+              <span class="arrow top"></span>
+              <a href="#">个人资料设置</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+            </li>
+          </ul>
+        </li>
+      </ul>      
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+        <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">          
+                  <section class="vbox">
+                    <section class="w-f scrollable">
+                      <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+                        <div class="clearfix wrapper dk nav-user hidden-xs">
+                          <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <span class="thumb avatar pull-left m-r">                        
+                                <img src="images/a0.png" class="dker" alt="...">
+                                <i class="on md b-black"></i>
+                              </span>
+                              <span class="hidden-nav-xs clear">
+                                <span class="block m-t-xs">
+                                  <strong class="font-bold text-lt">张小帅</strong> 
+                                  <b class="caret"></b>
+                                </span>
+                                <span class="text-muted text-xs block">高级研究员</span>
+                              </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">                      
+                              <li>
+                                <span class="arrow top hidden-nav-xs"></span>
+                                <a href="#">个人资料设置</a>
+                              </li>
+                              <li class="divider"></li>
+                              <li>
+                                <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>                
+        
+        
+                        <!-- nav -->                 
+                        <nav class="nav-primary hidden-xs">
+                          <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">主菜单</div>
+                          <ul class="nav nav-main" data-ride="collapse">
+                            <li>
+                              <a href="#" class="auto">
+                                <span class="pull-right text-muted">
+                                  <i class="i i-circle-sm-o text"></i>
+                                  <i class="i i-circle-sm text-active"></i>
+                                </span>
+                                <i class="i i-stack icon">
+                                </i>
+                                <span class="font-bold">我的项目</span>
+                              </a>
+                              <ul class="nav dk">
+                                <li >
+                                  <a href="allmember.html" class="auto"> <i class="i i-dot"></i>
+        
+                                    <span>查看全部成员</span>
+                                  </a>
+                                </li>
+                                <li >
+                                  <a href="favorite.html" class="auto"> <i class="i i-dot"></i>
+        
+                                    <span>收藏夹</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" class="auto">
+                                <i class="i i-docs icon">
+                                </i>
+                                <span class="font-bold">全部项目</span>
+                              </a>
+                            </li>
+                            <li class="active">
+                              <a href="#" class="auto">
+                                <span class="pull-right text-muted">
+                                  <i class="i i-circle-sm-o text"></i>
+                                  <i class="i i-circle-sm text-active"></i>
+                                </span>
+                                <i class="i i-lab icon">
+                                </i>
+                                <span class="font-bold">系统管理</span>
+                              </a>
+                              <ul class="nav dk">
+                                <li >
+                                  <a href="cataloguemanagement.html" class="auto">                                                        
+                                    <i class="i i-dot"></i>
+        
+                                    <span>分类管理</span>
+                                  </a>
+                                </li>
+                                <li >
+                                  <a href="tagmanagement.html" class="auto">                                                                                   
+                                    <i class="i i-dot"></i>
+        
+                                    <span>标签管理</span>
+                                  </a>
+                                </li>
+                                <li class="active">
+                                  <a href="usermanagement.html" class="auto">                                                        
+                                    <i class="i i-dot"></i>
+        
+                                    <span>用户管理</span>
+                                  </a>
+                                </li>
+                            </ul>
+                            </li>
+                            <li>
+                              <a href="#" class="auto">
+                                <span class="pull-right text-muted">
+                                  <i class="i i-circle-sm-o text"></i>
+                                  <i class="i i-circle-sm text-active"></i>
+                                </span>
+                                <i class="i i-statistics icon">
+                                </i>
+                                <span class="font-bold">数据分析</span>
+                              </a>
+                              <ul class="nav dk">
+                                <li>
+                                  <a href="chart.html" class="auto">                                                        
+                                    <i class="i i-dot"></i>
+        
+                                    <span>热点走向</span>
+                                  </a>
+                                </li>
+                                <li >
+                                  <a href="chart-compare.html" class="auto">                                                        
+                                    <i class="i i-dot"></i>
+        
+                                    <span>数据比较</span>
+                                  </a>
+                                </li>
+                                <li >
+                                  <a href="chart-distribution.html" class="auto">                                                        
+                                    <i class="i i-dot"></i>
+        
+                                    <span>热点分布</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li >
+                              <a href="userlog.html" class="auto">
+                                <i class="i i-grid2 icon">
+                                </i>
+                                <span class="font-bold">用户登录记录</span>
+                              </a>
+                              </li>
+                          </ul>
+                          <div class="line dk hidden-nav-xs"></div>
+                         
+                          </ul>
+                        </nav>
+                        <!-- / nav -->
+                      </div>
+                    </section>
+                    
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                      <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+                        <i class="i i-logout"></i>
+                      </a>
+                      <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+                        <i class="i i-circleleft text"></i>
+                        <i class="i i-circleright text-active"></i>
+                      </a>
+                    </footer>
+                  </section>
+                </aside>
+        <!-- /.aside -->
+        <section id="content">
+          <section class="vbox">
+            <section class="scrollable padder">
+              <div class="m-b-md">
+              <div class="row">
+                <div class="col-sm-6">
+                <h3 class="m-b-none">系统管理 &nbsp;&frasl;&nbsp; 用户管理</h3>
+                <small>您可以添加、编辑、删除用户，也可以修改已有用户的权限</small>
+              </div>
+              </div>
+              </div>
+
+              <section class="panel panel-default">
+                <header class="panel-heading">
+                  用户管理
+                <button href="#modal-adduser" class="btn btn-s-md btn-success btn-preset" style="margin: 5px 5px 5px 15px;" data-toggle="modal">
+                <i class="fa fa-plus text"></i>
+                <span class="text">添加用户</span>
+                </button>
+                <ul class="usergroup">
+                	<li class="all"><a href="#" class="current">全部<span class="count">（32）</span></a> |</li>
+                	<li class="senior-researcher"><a href="#">高级研究员<span class="count">（4）</span></a> |</li>
+                	<li class="researcher"><a href="#">研究员<span class="count">（3）</span></a> |</li>
+                	<li class="editor"><a href="#">录入员<span class="count">（13）</span></a> |</li>
+                	<li class="advanced-user"><a href="#">高级用户<span class="count">（13）</span></a> |</li>
+                	<li class="normal-user"><a href="#">用户<span class="count">（11）</span></a></li>
+                </ul>
+                </header>
+                <div class="row wrapper">
+                <div class="col-sm-5">
+                <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                   <span class="dropdown-label">批量操作</span> 
+                   <span class="caret"></span>
+                   </button>
+                   <ul class="dropdown-menu dropdown-select">
+                   <li class="active"><a href="#"><input type="radio" name="d-s-r" checked="">修改权限</a></li>
+                   <li class=""><a href="#"><input type="radio" name="d-s-r">删除</a></li>
+                   </ul>
+                   </div>
+                    <button class="btn btn-sm btn-default">应用</button>                
+                  </div>
+                  
+                  <div class="col-sm-3 pull-right-lg">
+                    <div class="input-group">
+                      <input type="text" class="input-sm form-control" placeholder="搜索">
+                      <span class="input-group-btn">
+                      <button class="btn btn-sm btn-default" type="button"><i class="fa fa-search"></i></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped b-t b-light">
+                    <thead>
+                      <tr>
+                        <th width="20"><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox"><i></i></label></th>
+                        <th class="th-sortable" data-toggle="class">ID
+                          <span class="th-sort">
+                            <i class="fa fa-sort-down text"></i>
+                            <i class="fa fa-sort-up text-active"></i>
+                            <i class="fa fa-sort"></i>
+                          </span>
+                        </th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>邮箱</th>
+                        <th>权限</th>
+                        <th>文章数量</th>
+                        <th style="width: 70px;">编辑</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>001</td>
+                        <td>aaa</td>
+                        <td>张小帅</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>高级研究员</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>002</td>
+                        <td>bbb</td>
+                        <td>刘晓雅</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>研究员</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>003</td>
+                        <td>ccc</td>
+                        <td>吴晓东</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>                        
+                        </td>
+                        <td>录入员</td>
+                        <td>197</td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>004</td>
+                        <td>ddd</td>
+                        <td>朱小贱</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>高级用户</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>005</td>
+                        <td>eee</td>
+                        <td>程小雨</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>用户</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>006</td>
+                        <td>fff</td>
+                        <td>夏小白</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>高级研究员</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>007</b></td>
+                        <td>ggg</td>
+                        <td>周晓曦</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>研究员</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>008</td>
+                        <td>hhh</td>
+                        <td>洪小宝</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>用户</td>
+                        <td></td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>009</td>
+                        <td>iii</td>
+                        <td>赵晓琪</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>录入员</td>
+                        <td>87</td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                      <tr>
+                        <td><label class="checkbox m-l m-t-none m-b-none i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                        <td>010</td>
+                        <td>jjj</td>
+                        <td>王小强</td>
+                        <td>
+                          <a href="#">aaa@sina.com</a>
+                        </td>
+                        <td>录入员</td>
+                        <td>97</td>
+                        <td><div class="btn-group open">
+                            <a href="#" class="iconbtn"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="iconbtn"><i class="fa fa-trash-o"></i></a></div>
+                            </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <footer class="panel-footer">
+                  <div class="row">
+                    <div class="col-sm-4 hidden-xs">
+                      <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                         <span class="dropdown-label">批量操作</span> 
+                         <span class="caret"></span>
+                         </button>
+                         <ul class="dropdown-menu dropdown-select">
+                         <li class="active"><a href="#"><input type="radio" name="d-s-r" checked="">修改权限</a></li>
+                         <li class=""><a href="#"><input type="radio" name="d-s-r">删除</a></li>
+                         </ul>
+                         </div>
+                      <button class="btn btn-sm btn-default">应用</button>                  
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <small class="text-muted inline m-t-sm m-b-sm">共32个条目，正在显示第1-10个</small>
+                    </div>
+                    <div class="col-sm-4 text-right text-center-xs">                
+                      <ul class="pagination pagination-sm m-t-none m-b-none">
+                        <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </footer>
+              </section>
+            </section>
+          </section>
+          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+        </section>
+      </section>
+    </section>
+  </section>
+  <script src="js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/bootstrap.js"></script>
+  <!-- App -->
+  <script src="js/app.js"></script>  
+  <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+  <div class="modal fade" id="modal-adduser" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="m-t-none">添加新用户</h3>
+          <small>您可以在此添加新的用户。</small>
+        </div>
+          <div class="modal-body wrapper-lg">
+            <div class="row">
+              <div class="col-sm-12">
+              <form class="form-horizontal" method="get">
+                                     <div class="form-group">
+                                     <label class="col-sm-2 control-label">用户名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-10">
+                                     <input type="text" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，请使用英文字母和数字作为用户名，用户名不能和已有用户重复，大小写不限，不能使用特殊符号。</span>
+                                     </div>
+                                     </div>
+                                   <div class="line line-dashed b-b line-lg pull-in"></div>
+                                     <div class="form-group">
+                                     <label class="col-sm-2 control-label">密码<span class="redstar"> *</span></label>
+                                     <div class="col-sm-10">
+                                     <input type="password" name="password" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，请使用英文字母和数字作为密码，密码长度为8~16位之间，大小写不限，不能使用特殊符号。</span>
+                                     </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                     <div class="form-group">
+                                      <label class="col-sm-2 control-label">重复密码<span class="redstar"> *</span></label>
+                                      <div class="col-sm-10">
+                                      <input type="password" name="password" class="form-control">
+                                      <span class="help-block m-b-none">此项为必填，请再次输入密码。</span>
+                                      </div>
+                                     </div>
+                                      <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                        <label class="col-sm-2 control-label">电子邮箱<span class="redstar"> *</span></label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="example@example.com">
+                                                    <span class="help-block m-b-none">此项为必填。</span>
+                                                  </div>
+                                                </div>
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+              
+                                                <div class="form-group">
+                                                  <label class="col-sm-2 control-label">用户权限<span class="redstar"> *</span></label>
+                                                  
+                                                  <div class="btn-group col-sm-10">
+                                                  <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                                                  <span class="dropdown-label">请选择用户权限</span> 
+                                                  <span class="caret"></span>
+                                                  </button>
+                                                  <ul class="dropdown-menu dropdown-select">
+                                                  <li class=""><a href="#"><input type="radio" name="d-s-r" checked="">高级研究员</a></li>
+                                                  <li class=""><a href="#"><input type="radio" name="d-s-r">研究员</a></li>
+                                                  <li class=""><a href="#"><input type="radio" name="d-s-r">录入员</a></li>
+                                                  <li class=""><a href="#"><input type="radio" name="d-s-r">高级用户</a></li>
+                                                  <li class=""><a href="#"><input type="radio" name="d-s-r">用户</a></li>
+                                                  </ul>
+                                                  </div>                                   
+                                                </div>
+                                        
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="form-group">
+                                                  <label class="col-sm-2 control-label">上传头像</label>
+                                                  <div class="col-sm-10">
+                                                    <div class="dropfile visible-lg">
+                                                      <small>请将头像图片拖拽至此</small>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="checkbox m-t-lg">
+                                                   <button type="submit" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" data-loading-text="添加中..."><strong>添加新用户</strong></button>
+                                                </div>
+                                              </form>
+                              </div>
+              
+            </div>          
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  <script src="js/charts/sparkline/jquery.sparkline.min.js"></script>
+  <script src="js/app.plugin.js"></script>
+</body>
+</html>

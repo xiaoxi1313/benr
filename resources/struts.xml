@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 是否显示详细错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 国际化资源文件名称 -->
+	<constant name="struts.custom.i18n.resources" value="i18n" />
+	
+	<!-- 是否自动加载国际化资源文件  -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- convention类重新加载 -->
+	<constant name="struts.convention.classes.reload" value="true" />
+	<!-- 浏览器是否缓存静态内容 -->
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<!-- 配置使用Spring管理Action -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 上传文件大小限制设置 -->
+	<constant name="struts.multipart.maxSize" value="-1" />
+
+	<!-- 主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 后缀 -->
+	<constant name="struts.action.extension" value="action" />
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" /> 
+
+	<!-- 结果资源的路径 -->
+	<constant name="struts.convention.result.path" value="/WEB-INF/template/" />
+	
+	<!-- URL资源分隔符 
+	<constant name="struts.convention.action.name.separator" value="_" />-->
+	
+	<package name="basePackage" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor name="encodingInterceptor" class="com.newvery.web.interceptor.HttpGetEncodingIntercepter" />
+			<interceptor name="loginInterceptor" class="com.newvery.web.filter.LoginIntercepter" />
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="encodingInterceptor" />
+				<interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="exception" />
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="servletConfig" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="prepare" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="scopedModelDriven" />
+                <interceptor-ref name="modelDriven" />
+                <interceptor-ref name="fileUpload" />
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="multiselect" />
+                <interceptor-ref name="staticParams" />
+                <interceptor-ref name="actionMappingParams" />
+                <interceptor-ref name="loginInterceptor" /> 
+                <!-- <interceptor-ref name="conversionError"/> -->
+                <!-- 配置方法级别的校验 -->
+                <interceptor-ref name="validation">
+			        <param name="validateAnnotatedMethodOnly">true</param>
+			    </interceptor-ref>
+                
+            </interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="baseStack" />
+		
+		
+		<global-results>
+			<result name="login" type="redirect">login.action</result>
+			<result name="error">/WEB-INF/template/error.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="com.newvery.exception.ServiceException"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="main" class="com.newvery.web.action.IndexAction" method="main">
+			<result>/WEB-INF/template/site/main.jsp</result>
+		</action>
+		
+		<action name="index" class="com.newvery.web.action.IndexAction">
+			<result>/WEB-INF/template/site/index.jsp</result>
+		</action>
+		
+		<action name="user_index" class="com.newvery.web.action.IndexAction" method="userIndex">
+			<result>/WEB-INF/template/site/user_index.jsp</result>
+		</action>
+		
+		<action name="saveQuery" class="com.newvery.web.action.IndexAction" method="savaQuery">
+			<result type="redirect">index.action?menu_url=index</result>
+		</action>
+		
+		<action name="deleteQuery" class="com.newvery.web.action.IndexAction" method="deleteQuery" />
+		<action name="index_deleteArticle" class="com.newvery.web.action.IndexAction" method="deleteArticle" />
+		
+		<action name="batchDelete" class="com.newvery.web.action.IndexAction" method="batchDelete">
+			<result type="redirect">index.action?menu_url=index</result>
+		</action>
+		
+		<action name="batchDeleteAjax" class="com.newvery.web.action.IndexAction" method="batchDeleteAjax" />
+		
+		<action name="login" class="com.newvery.web.action.member.UserLoginAction" method="login">
+			<result name="login">/WEB-INF/template/site/login.jsp</result>
+			<result type="redirect">index.action</result>
+		</action>
+		
+		<action name="logout" class="com.newvery.web.action.member.UserLoginAction" method="logout">
+			<result type="redirect" name="logout">login.action</result>
+			<result type="redirect" name="userlogout">/</result>
+		</action>
+		
+		<action name="forgot_*" class="com.newvery.web.action.member.ForgotPasswordAction" method="{1}">
+			<result name="step1">/WEB-INF/template/site/forgotpassword.jsp</result>
+		</action>
+		
+		<action name="user_*" class="com.newvery.web.action.member.UserManageAction" method="{1}">
+			<result name="list">/WEB-INF/template/site/member/user_list.jsp</result>
+			<result name="add">/WEB-INF/template/site/member/user_add.jsp</result>
+			<result name="save" type="redirect">user_list.action</result>
+			<result name="log">/WEB-INF/template/site/member/user_log.jsp</result>
+			<result name="allMember">/WEB-INF/template/site/member/all_member.jsp</result>
+			<result name="allMemberRedirect" type="redirect">user_allMember.action?menuUrl=user_allMember</result>
+			<result name="updateAssign" type="redirect">user_allMember.action?menuUrl=user_allMember</result>
+		</action>
+		
+		<action name="tag_*" class="com.newvery.web.action.tag.TagManageAction" method="{1}">
+			<result name="manage">/WEB-INF/template/site/tag/tag_manage.jsp</result>
+			<result name="list">/WEB-INF/template/site/tag/tag_list.jsp</result>
+			<result name="delete" type="redirect">tag_manage.action?tagCategoryId=${tagCategoryId}</result>
+			<result name="update" type="redirect">tag_manage.action</result>
+		</action>
+		
+		<action name="category_*" class="com.newvery.web.action.category.CategoryManageAction" method="{1}">
+			<result name="manage">/WEB-INF/template/site/category/category_manage.jsp</result>
+			<result name="manage_grid">/WEB-INF/template/site/category/category_manage_grid.jsp</result>
+			<result name="children">/WEB-INF/template/site/category/category_child_list.jsp</result>
+			<result name="list" type="redirect">category_manage.action?menuUrl=category_manage</result>
+			<result name="getChildren" type="redirect">category_getChildren.action?parentId=${category.parentId}</result>
+		</action>
+		
+		<action name="article_*" class="com.newvery.web.action.article.ArticleAction" method="{1}">
+		    <result name="list">/WEB-INF/template/site/article/article_list.jsp</result>
+			<result name="input">/WEB-INF/template/site/article/editpost.jsp</result>
+			<result name="manage" type="redirect">article_list.action</result>
+			<result name="manageOther" type="redirect">article_list.action?article.userId=${article.userId}</result>
+			<result name="show">/WEB-INF/template/site/article/article.jsp</result>
+			<result name="user_show">/WEB-INF/template/site/article/user_post.jsp</result>
+			<result name="preview">/WEB-INF/template/site/article/article_preview.jsp</result>
+			<result name="index" type="redirect">index.action</result>
+			<result name="jumpTo" type="redirect">article_show.action?article.id=${article.id}</result>
+			<result name="search">/WEB-INF/template/site/article/article_search_list.jsp</result>
+			<result name="recycle">/WEB-INF/template/site/trashcan.jsp</result>
+			<result name="forTag">/WEB-INF/template/site/article/article_for_tag.jsp</result>
+		</action>
+		
+		<!-- 
+		<action name="jumpToNext" class="com.newvery.web.action.article.ArticleAction" method="jumpToNext">
+		</action>
+		 -->
+		
+		<action name="articleprint_*" class="com.newvery.web.action.article.ArticlePrintAction" method="{1}">
+			<result name="show">/WEB-INF/template/site/article/article_print.jsp</result>
+			<result name="simple">/WEB-INF/template/site/article/article_print_simple.jsp</result>
+		</action>
+		
+		<action name="articleBatchExport" class="com.newvery.web.action.ArticleBatchExportAction">
+			<!-- <result name="success" type="stream">
+                <param name="contentType">application/zip</param>
+                <param name="inputName">zipStream</param>
+                <param name="contentDisposition">
+                    attachment;filename=${zipfilename}
+                </param>
+                <param name="bufferSize">2048</param>
+            </result> -->
+		</action>
+		
+		<action name="articleBatchDownload" class="com.newvery.web.action.ArticleBatchExportAction" method="download">
+			<result name="success" type="stream">
+                <param name="contentType">application/zip</param>
+                <param name="inputName">zipStream</param>
+                <param name="contentDisposition">
+                    attachment;filename=${zipfilename}
+                </param>
+                <param name="bufferSize">2048</param>
+            </result> 
+		</action>
+		
+		
+		
+		<action name="exportArticl" class="com.newvery.web.action.article.ArticleAction" method="export">
+            <result name="success" type="stream">
+                <!-- 下载文件的类型，如果你不知道是什么格式，可以去 tomcat\conf\web.xml下找 -->
+                <param name="contentType">application/pdf</param>
+                <!-- 返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">pdfStream</param>
+                <!-- attachment 这个位置的参数挺特殊的，可以设置成下载时，是否出现个下载提示框，或者直接下载之类的。
+                fileName指定生成的文件名字(适合动态生成文件名，比如做报表时，一般都要说是几月的统计数据之类)为action中变量-->
+                <param name="contentDisposition">
+                    attachment;filename=${pdfFileName}
+                </param>
+                <param name="bufferSize">2048</param>
+            </result>
+        </action>
+		
+		<action name="favorite_*" class="com.newvery.web.action.favorite.FavoriteAction" method="{1}">
+		    <result name="list">/WEB-INF/template/site/favorite/favorite_manage.jsp</result>
+		    <result name="child">/WEB-INF/template/site/favorite/favorite_child.jsp</result>
+		    <result name="delete" type="redirect">favorite_list.action</result>
+		    <result name="my_favorite_list">/WEB-INF/template/site/favorite/user_folder.jsp</result>
+		    <result name="origin_project">/WEB-INF/template/site/favorite/origin_project.jsp</result>
+		    <result name="origin_project_grid">/WEB-INF/template/site/favorite/origin_project_grid.jsp</result>
+		</action>
+		
+		<action name="upload" class="com.newvery.web.action.UploadAction" method="uploadFile"></action>
+		<action name="uploadImage" class="com.newvery.web.action.UploadAction" method="uploadImage"></action>
+		<action name="viewImg" class="com.newvery.web.action.UploadAction" method="viewImages"></action>  
+		
+		<action name="uploadifyAction" class="com.newvery.web.action.UploadFileDemoAction" method="uploadFile"/>
+		<action name="uploadShow" class="com.newvery.web.action.UploadFileDemoAction" method="upload">
+			<result name="upload">/WEB-INF/template/site/uploadFileDemo.jsp</result>
+		</action>
+		
+		<action name="chart_*" class="com.newvery.web.action.chart.ChartAction" method="{1}">
+		    <!-- <result name="init">/WEB-INF/template/site/chart/chart.jsp</result> -->
+		    <result name="compare">/WEB-INF/template/site/chart/chart_compare.jsp</result>
+		    <result name="init">/WEB-INF/template/site/chart/chart-hot-spot-distribution.jsp</result>
+		    <result name="distribution">/WEB-INF/template/site/chart/chart_relation.jsp</result>
+		    <result name="tagArticle">/WEB-INF/template/site/chart/tagarticle.jsp</result>
+		    <result name="distribution-container">/WEB-INF/template/site/chart/distribution-container.jsp</result>
+		    <result name="distribution-right">/WEB-INF/template/site/chart/distribution-right.jsp</result>
+		</action>
+		
+		<action name="relationPie" class="com.newvery.web.action.chart.PieChartAction">
+		
+		</action>
+		
+		<action name="updateUserProfile" class="com.newvery.web.action.member.UpdateUserProfileAction">
+		</action>
+		
+		<action name="batchImport" class="com.newvery.web.action.ArticleImportAction">
+			<result>/WEB-INF/template/site/batchImport.jsp</result>
+		</action>
+		
+		<action name="saveBatch" class="com.newvery.web.action.ArticleImportAction" method="save">
+			<result>/WEB-INF/template/site/batchImport.jsp</result>
+		</action>
+		
+		<action name="batchExportArticl" class="com.newvery.web.action.IndexAction" method="batchExport">
+            <result name="success" type="stream">
+                <!-- 下载文件的类型，如果你不知道是什么格式，可以去 tomcat\conf\web.xml下找 -->
+                <param name="contentType">application/pdf</param>
+                <!-- 返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">pdfStream</param>
+                <!-- attachment 这个位置的参数挺特殊的，可以设置成下载时，是否出现个下载提示框，或者直接下载之类的。
+                fileName指定生成的文件名字(适合动态生成文件名，比如做报表时，一般都要说是几月的统计数据之类)为action中变量-->
+                <param name="contentDisposition">
+                    attachment;filename=${pdfFileName}
+                </param>
+                <param name="bufferSize">2048</param>
+            </result>
+        </action>
+        
+        <action name="pdf_*" class="com.newvery.web.action.pdf.PDFFileAction" method="{1}">
+			<result name="manage">/WEB-INF/template/site/pdf/pdf_manage.jsp</result>
+			<result name="listByType">/WEB-INF/template/site/pdf/pdf_list_by_type.jsp</result>
+			<result name="view">/WEB-INF/template/site/pdf/pdf_view.jsp</result>
+		</action>
+		
+		<action name="usergroup_*" class="com.newvery.web.action.member.UserGroupManageAction" method="{1}">
+			<result name="list">/WEB-INF/template/site/member/user_group_list.jsp</result>
+			<result name="detail">/WEB-INF/template/site/member/user_group_detail.jsp</result>
+			<result name="members">/WEB-INF/template/site/member/user_group_members.jsp</result>
+		</action>
+		
+		<action name="usersharefoavorite" class="com.newvery.web.action.favorite.UserShareFavoriteAction">
+			<result>/WEB-INF/template/site/favorite/user_share_favorite.jsp</result>
+		</action>
+		
+		<action name="shareFavorite" class="com.newvery.web.action.favorite.UserShareFavoriteAction" method="shareFavorite">
+		
+		</action>
+ 	</package>
+</struts>

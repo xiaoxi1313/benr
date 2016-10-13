@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	<resultMap id="role" type="RoleRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		
+		<association property="userNum" select="countUserNumByRoleId" column="id" javaType="int"></association>
+	</resultMap>
+	
+	<insert id="insertRole" useGeneratedKeys="true" keyProperty="id" parameterType="RoleRecord">
+		insert into tb_role 
+		(create_time,modify_time,description,name,locale,deleted) 
+		values
+		(#{create_time},#{modify_time},#{description},#{name},#{locale},#{deleted})
+	</insert>
+	
+	<update id="updateRole" parameterType="RoleRecord">
+		update tb_role set 
+		modify_time=#{modify_time},description=#{description},name=#{name},locale=#{locale}
+		where 
+		id = #{id}#
+	</update>
+	
+	<delete id="deleteRole" parameterType="int">
+		update tb_role set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</delete>
+	
+	<select id="listRole" resultMap="role">
+		select * from tb_role where deleted=0 order by id
+	</select>
+	
+	<select id="findRoleByPK" parameterType="int" resultType="RoleRecord">
+		select * from tb_role where id = #{value}#
+	</select>
+	
+	<select id="countRoleRecord" parameterType="String" resultType="int">
+		select count(name) from tb_role where name = #{value}#
+	</select>
+	
+	<select id="countUserNumByRoleId" parameterType="int" resultType="int">
+		SELECT 
+			count(ar.id)
+		FROM
+			tb_role r, tb_admin_role ar, tb_user u
+		WHERE
+			r.deleted = 0 and r.id = ar.role_id and u.id = ar.admin_id and u.deleted = 0 and r.id = #{id}
+	</select>
+</mapper>

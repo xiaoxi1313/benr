@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<resultMap id="userlog" type="UserLogRecord" > 
+		<id column="id" property="id"/> 
+		<result column="createdate" property="createdate"/>
+		<result column="logoutTime" property="logoutTime"/>
+		<result column="browser" property="browser"/>
+		<result column="type" property="type"/>
+		<result column="ip" property="ip"/>
+		<association property="user" select="findUserByPK" column="userId" javaType="UserRecord"></association>
+	</resultMap>
+	
+	<select id="countLoginlistByAdminSearch" parameterType="java.util.HashMap" resultType="int">
+		select count(a.id)  from tb_user_log as a join tb_user as b on a.userId=b.id
+		<where>
+			type=1 
+			<if test="userName!=null and userName!=''">  
+	           and b.userName like "%"#{userName}"%"  
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and a.createdate >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and a.createdate <= #{endDate}]]> 
+	        </if>
+		</where>
+		
+	</select>
+	
+	<select id="findLoginlistByAdminSearch" parameterType="java.util.HashMap" resultMap="userlog">
+		select a.*  from tb_user_log as a join tb_user as b on a.userId=b.id
+		<where>
+			type=1 
+			<if test="userName!=null and userName!=''">
+	           and b.userName like "%"#{userName}"%"  
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and a.createdate >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and a.createdate <= #{endDate}]]> 
+	        </if>
+		</where>
+		<choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	order by a.createdate desc
+	    	</otherwise>
+	    </choose>
+		
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+
+	<insert id="insertUserLogRecord" useGeneratedKeys="true" keyProperty="id" parameterType="UserLogRecord">
+		insert into tb_user_log 
+		(createdate,userId,type,ip,logoutTime,browser) 
+		values
+		(#{createdate},#{user.id},#{type},#{ip},#{logoutTime},#{browser})
+	</insert>
+	
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+    <resultMap id="userFavorite" type="UserFavoriteRecord" > 
+		<id column="id" property="id"/> 
+		<result column="userId" property="userId"/>
+		<result column="userGroupId" property="userGroupId"/>
+		
+		<result column="parentFavoriteId" property="parentFavoriteId"/>
+		<result column="childFavoriteId" property="childFavoriteId"/>
+		<result column="createTime" property="createTime"/>
+		<result column="deleted" property="deleted"/>
+		
+		<association property="parentFavorite" select="findFavoriteByPK" column="parentFavoriteId" javaType="FavoriteRecord"></association>
+		<association property="childFavorite" select="findFavoriteByPK" column="childFavoriteId" javaType="FavoriteRecord"></association>
+	</resultMap>
+	
+	<insert id="insertUserFavorite" parameterType="UserFavoriteRecord" >
+		insert into tb_user_favorite 
+		(userId,parentFavoriteId,childFavoriteId,createTime,deleted,userGroupId) 
+		values
+		(#{userId},#{parentFavoriteId},#{childFavoriteId},#{createTime}, #{deleted},#{userGroupId})
+	</insert>
+	
+	<update id="deleteUserFavorite" parameterType="int">
+		delete from tb_user_favorite where id=#{id} 
+	</update>
+	
+	<delete id="deleteFavoriteByUserGroupId" parameterType="long">
+		delete from tb_user_favorite where userGroupId = #{v}
+	</delete>
+	
+	<select id="findUserFavoriteByUserId" parameterType="int" resultMap="userFavorite">
+		select * from tb_user_favorite where userId = #{userId}
+	</select>
+	
+	<select id="findUserFavoriteByGroupId" parameterType="int" resultMap="userFavorite">
+		select * from tb_user_favorite where userGroupId = #{v}
+	</select>
+	
+	<select id="findUserFavoriteByUserIdAndChildFavoriteId" parameterType="UserFavoriteRecord" resultMap="userFavorite">
+		select * from tb_user_favorite where userId = #{userId} and childFavoriteId= #{childFavoriteId}
+	</select>
+</mapper>

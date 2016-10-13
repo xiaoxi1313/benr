@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	<resultMap id="favoriteGroup" type="FavoriteGroupRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		<result column="createTime" property="createTime"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="userId" property="userId"/>
+		<result column="favoriteId" property="favoriteId"/>
+		<result column="deleted" property="deleted"/>
+		
+		<association property="articleList" select="listArticleByFavoriteGroupId" column="id" javaType="ArrayList"></association>
+	</resultMap>
+	
+	<insert id="insertFavoriteGroup" useGeneratedKeys="true" keyProperty="id" parameterType="FavoriteGroupRecord">
+		insert into tb_favorite_group 
+		(createTime,modifyTime,name,userId,favoriteId,deleted) 
+		values
+		(#{createTime},#{modifyTime},#{name},#{userId},#{favoriteId},#{deleted})
+	</insert>
+	
+	<update id="updateFavoriteGroup" parameterType="FavoriteGroupRecord">
+		update tb_favorite_group set 
+		modifyTime=#{modifyTime},name=#{name},userId=#{userId},favoriteId=#{favoriteId},deleted=#{deleted}
+		where 
+		id = #{id}#
+	</update>
+	
+	<update id="deleteFavoriteGroup" parameterType="int">
+		update tb_favorite_group set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<select id="listFavoriteGroupByUserId" parameterType="int" resultType="FavoriteGroupRecord">
+		select * from tb_favorite_group where deleted=0 and userId = #{value}# order by id
+	</select>
+	
+	<select id="listFavoriteGroupByFavoriteId" parameterType="int" resultMap="favoriteGroup">
+		select * from tb_favorite_group where deleted=0 and favoriteId = #{value}# order by id
+	</select>
+	
+	<select id="findFavoriteGroupByPK" parameterType="int" resultType="FavoriteGroupRecord">
+		select * from tb_favorite_group where id = #{value}#
+	</select>
+	
+</mapper>

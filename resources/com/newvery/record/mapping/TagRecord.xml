@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertTag" useGeneratedKeys="true" keyProperty="id" parameterType="TagRecord">
+		insert into tb_tag 
+		(createTime,modifyTime,description,name,locale,deleted,alias,articleNum,status,categoryId,hot,userId,tooltip) 
+		values
+		(#{createTime},#{modifyTime},#{description},#{name},#{locale},#{deleted},#{alias},#{articleNum},#{status},#{categoryId},#{hot},#{userId},#{tooltip})
+	</insert>
+	
+	<update id="updateTag" parameterType="TagRecord">
+		update tb_tag set 
+		modifyTime=#{modifyTime},description=#{description},name=#{name},locale=#{locale},alias=#{alias},articleNum=#{articleNum},status=#{status},categoryId=#{categoryId},hot=#{hot},userId=#{userId},tooltip=#{tooltip} 
+		where 
+		id = #{id}#
+	</update>
+	
+	<update id="updateTagStatus" parameterType="TagRecord">
+		update tb_tag set 
+		modifyTime=#{modifyTime},status=#{status}
+		where 
+		id = #{id}#
+	</update>
+	
+	<delete id="deleteTag" parameterType="long">
+		delete from tb_tag  where  id=#{id}
+	</delete>
+	<delete id="deleteTagArticle" parameterType="long">
+		delete from tb_article_tag where tagId = #{id}
+	</delete>
+	
+	<update id="batchDeleteTag" parameterType="java.util.HashMap">
+	    update tb_tag set  
+			deleted = 1 
+		where 
+		id IN(
+       		<foreach item="val" index="index" collection="tagIdList" separator=",">
+          		#{val}
+  			</foreach>)
+	</update>
+	
+	<select id="listTag" resultType="TagRecord">
+		select * from tb_tag where deleted=0 order by id desc
+	</select>
+	
+	<select id="listTagByStatus" parameterType="java.util.HashMap" resultType="TagRecord">
+		select * from tb_tag 
+		where 
+			deleted=0 
+			<if test="status > 0 ">  
+	            AND status = #{status}
+	        </if> 
+	        <if test="userId > 0 ">  
+	            AND userId = #{userId}
+	        </if> 
+	         order by id desc
+	</select>
+	
+	<select id="listAllTagByArticleId" parameterType="int" resultType="TagRecord">
+		select t.* from tb_tag t, tb_article_tag a where t.deleted=0 and t.id=a.tagId and a.articleId=#{articleId} order by t.id desc
+	</select>
+	
+	<select id="listCommonTagByArticleId" parameterType="int" resultType="TagRecord">
+		select t.* from tb_tag t, tb_article_tag a where t.deleted=0 and t.hot=0 and t.id=a.tagId and a.articleId=#{articleId} order by t.id desc
+	</select>
+	
+	<select id="listHotTagByArticleId" parameterType="int" resultType="TagRecord">
+		select t.* from tb_tag t, tb_article_tag a where t.deleted=0 and t.hot=1 and t.id=a.tagId and a.articleId=#{articleId} order by t.id desc
+	</select>
+	
+	<select id="listTodayTagByUserId" parameterType="int" resultType="TagRecord">
+		select * from tb_tag 
+		where 
+			deleted = 0 and TO_DAYS(createTime) = TO_DAYS(now()) and userId = #{userId} 
+		order by id
+	</select>
+	
+	<select id="findTagByPK" parameterType="int" resultType="TagRecord">
+		select * from tb_tag where id = #{value}#
+	</select>
+	
+	<select id="findTagByName" parameterType="String" resultType="TagRecord">
+		select * from tb_tag where name = #{name} and deleted=0
+	</select>
+	
+	<select id="countTagRecord" parameterType="String" resultType="int">
+		select count(name) from tb_tag where name = #{value}#
+	</select>
+	
+	<select id="countTagByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(id) from tb_tag  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="categoryId > 0 ">  
+	            AND categoryId = #{categoryId}
+	        </if> 
+	        <if test="status != null">
+	        	and status = #{status}
+	        </if>
+	    </where>
+	</select>
+	<select id="findTagByPage" parameterType="java.util.HashMap" resultType="TagRecord">
+		select * from tb_tag  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')  
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="categoryId > 0 ">  
+	            AND categoryId = #{categoryId}
+	        </if> 
+	        <if test="status != null">
+	        	and status = #{status}
+	        </if>
+	    </where>
+		<choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY id DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<update id="updateTagArticleNum" parameterType="TagRecord">
+		update tb_tag set articleNum=#{articleNum} where id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertArticleFavoriteGroup" parameterType="ArticleFavoriteGroupRecord" >
+		insert into tb_article_favorite_group 
+		(articleId,favoriteGroupId) 
+		values
+		(#{articleId},#{favoriteGroupId})
+	</insert>
+	
+	<delete id="deleteArticleFavoriteGroupByGroupId" parameterType="int">
+		delete from tb_article_favorite_group 
+		where 
+		favoriteGroupId=#{favoriteGroupId}# 
+	</delete>
+	
+	<select id="findArticleFavoriteGroupByGroupId" parameterType="int" resultType="ArticleFavoriteGroupRecord">
+		select * from tb_article_favorite_group where favoriteGroupId = #{favoriteGroupId}
+	</select>
+	
+	<select id="selectFavoriteGroupSingleOjbect" parameterType="java.util.Map" resultType="ArticleFavoriteGroupRecord">
+		select id,articleId,favoriteGroupId from tb_article_favorite_group where favoriteGroupId=#{favoriteGroupId} and articleId=#{articleId} limit 0,1
+	</select>
+</mapper>

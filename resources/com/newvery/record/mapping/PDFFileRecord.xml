@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<resultMap type="PDFFileRecord" id="pdfResult">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="type" property="type"/>
+		<result column="userId" property="userId"/>
+		<result column="thumbnail" property="thumbnail"/>
+		<result column="pdf" property="pdf"/>
+		<result column="createTime" property="createTime"/>
+		<result column="deleted" property="deleted"/>
+		<association property="userGroup" select="findUserGroupByPK" column="userGroupId" javaType="UserGroupRecord"></association>
+	</resultMap>
+	
+	<insert id="insertPDFFile" parameterType="PDFFileRecord" >
+		insert into tb_pdf 
+		(title,type,userId,thumbnail,pdf,createTime,modifyTime,deleted,userGroupId) 
+		values
+		(#{title},#{type},#{userId},#{thumbnail},#{pdf},#{createTime},#{modifyTime},#{deleted},#{userGroup.id})
+	</insert>
+	
+	<update id="deletePDF" parameterType="int">
+		update tb_pdf set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<select id="findPDFByPK" parameterType="int" resultType="PDFFileRecord">
+		select * from tb_pdf where id = #{value}#
+	</select>
+	
+	<select id="countPDFByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(id) from tb_pdf  
+		<where>  
+		    deleted=0 
+			<if test="title!=null and title!=''">  
+	           and (title like '%${title}%')    
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="type > 0">  
+	           and (type = #{type})    
+	        </if>
+	        <if test="year!=null and year!='' ">  
+	           and Year(createTime) = #{year} 
+	        </if> 
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userIds != null">
+	        	AND userId  IN(
+	        	<foreach item="val" index="index" collection="userIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	        <if test="userGroupId != null">
+	        	and userGroupId = #{userGroupId}
+	        </if>
+	    </where>
+	</select>
+	<select id="findPDFByPage" parameterType="java.util.HashMap" resultMap="pdfResult">
+		select * from tb_pdf  
+		<where>  
+		    deleted=0 
+			<if test="title!=null and title!=''">  
+	           and (title like '%${title}%')    
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="type > 0">  
+	           and (type = #{type})    
+	        </if>
+	        <if test="year!=null and year!='' ">  
+	           and Year(createTime) = #{year} 
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userIds != null">
+	        	AND userId  IN(
+	        	<foreach item="val" index="index" collection="userIds" separator=",">
+            		#{val}
+    			</foreach>)
+	        </if>
+	         <if test="userGroupId != null">
+	        	and userGroupId = #{userGroupId}
+	        </if>
+	    </where>
+	    <choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY id DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+</mapper>

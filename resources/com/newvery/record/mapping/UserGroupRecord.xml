@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record">
+	<insert id="insertUserGroup" parameterType="UserGroupRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user_group(groupName,lastVipDays,vipValidateDate,registerDate,adminId,folderTotal,categoryTotal)
+					values(#{groupName},#{lastVipDays},#{vipValidateDate},NOW(),#{adminId},#{folderTotal},#{categoryTotal})
+	</insert>
+	<update id="updateUserGroup" parameterType="UserGroupRecord">
+		update tb_user_group set 
+					groupName = #{groupName},
+					lastVipDays = #{lastVipDays},
+					vipValidateDate = #{vipValidateDate},
+					folderTotal = #{folderTotal},
+					categoryTotal=#{categoryTotal}
+				where id = #{id}
+	</update>
+	
+	<update id="updateGroupAdminUserId" parameterType="java.util.Map">
+		update tb_user_group set groupAdminUserId = #{groupAdminUserId} where id = #{id}
+	</update>
+	
+	<select id="countGroupMembers" parameterType="long" resultType="int">
+		select count(*) from tb_user where userGroupId = #{v}
+	</select>
+	
+	<select id="findUserGroupByPK" parameterType="int" resultType="UserGroupRecord">
+		select * from tb_user_group where id = #{id}#
+	</select>
+	<delete id="deleteUserGroup" parameterType="long">
+		delete from tb_user_group where id = #{id}
+	</delete>
+	<select id="countGroupByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from tb_user_group  
+		<where>  
+			<if test="groupName != null"> 
+	           groupName like '%${groupName}%'
+	        </if>
+	    </where>
+	</select>
+	<select id="findGroupByPage" parameterType="java.util.HashMap" resultType="UserGroupRecord">
+		select * from tb_user_group  
+		<where>  
+			<if test="groupName != null">  
+	           u.userName like '%${groupName}%'
+	        </if>
+	    </where>
+	    order by id asc
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+        
+        
+	</select>
+</mapper>

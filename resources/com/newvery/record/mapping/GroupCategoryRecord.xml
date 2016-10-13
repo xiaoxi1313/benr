@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<resultMap id="groupCategory" type="GroupCategoryRecord" > 
+		<id column="id" property="id"/> 
+		
+		<association property="parentCategory" select="findCategoryByPK" column="parentCategoryId" javaType="CategoryRecord"></association>
+		<association property="category" select="findCategoryByPK" column="categoryId" javaType="CategoryRecord"></association>
+		
+	</resultMap>
+	
+	<insert id="insertGroupCategory" parameterType="GroupCategoryRecord" >
+		insert into tb_group_category 
+		(userGroupId,categoryId,parentCategoryId) 
+		values
+		(#{userGroupId},#{categoryId},#{parentCategoryId})
+	</insert>
+	
+	<delete id="deleteGroupCategory" parameterType="GroupCategoryRecord">
+		delete from tb_group_category 
+		where 
+		userGroupId=#{userGroupId}
+	</delete>
+	
+	
+	<select id="findGroupCategory" parameterType="long" resultMap="groupCategory">
+		select id,parentCategoryId,categoryId from tb_group_category where userGroupId = #{v}
+	</select>
+	
+</mapper>

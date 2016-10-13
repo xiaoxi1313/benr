@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en" class="app topadminfav">
+<head>  
+  <meta charset="utf-8" />
+  <title>本然数据库</title>
+  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/icon.css" type="text/css" />
+  <link rel="stylesheet" href="css/font.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" /> 
+  <link rel="stylesheet" href="js/calendar/bootstrap_calendar.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="js/ie/html5shiv.js"></script>
+    <script src="js/ie/respond.min.js"></script>
+    <script src="js/ie/excanvas.js"></script>
+  <![endif]-->  
+</head>
+<body class="" >
+  <section class="vbox">
+    <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+      <div class="navbar-header aside-md dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class="navbar-brand">
+          <img src="images/logo.jpg" class="m-r-sm" alt="scale">
+          <span class="hidden-nav-xs">本然数据库</span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="fa fa-cog"></i>
+        </a>
+      </div>
+      
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border" placeholder="请搜索...">            
+          </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="thumb-sm avatar pull-left">
+              <img src="images/a0.png" alt="...">
+            </span>
+            张小帅 <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight">            
+            <li>
+              <span class="arrow top"></span>
+              <a href="#">个人资料设置</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+            </li>
+          </ul>
+        </li>
+      </ul>      
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+        <aside class="bg-black aside-md hidden-print hidden-xs nav-xs" id="nav">          
+          <section class="vbox">
+            <section class="w-f scrollable">
+              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+                <div class="clearfix wrapper dk nav-user hidden-xs">
+                  <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <span class="thumb avatar pull-left m-r">                        
+                        <img src="images/a0.png" class="dker" alt="...">
+                        <i class="on md b-black"></i>
+                      </span>
+                      <span class="hidden-nav-xs clear">
+                        <span class="block m-t-xs">
+                          <strong class="font-bold text-lt">张小帅</strong> 
+                          <b class="caret"></b>
+                        </span>
+                        <span class="text-muted text-xs block">高级研究员</span>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">                      
+                      <li>
+                        <span class="arrow top hidden-nav-xs"></span>
+                        <a href="#">个人资料设置</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="modal.lockme.html" data-toggle="ajaxModal" >登出</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>                
+
+
+                <!-- nav -->                 
+                <nav class="nav-primary hidden-xs">
+                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">主菜单</div>
+                  <ul class="nav nav-main" data-ride="collapse">
+                    <li class="active">
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-stack icon">
+                        </i>
+                        <span class="font-bold">我的项目</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li >
+                          <a href="allmember.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>查看全部成员</span>
+                          </a>
+                        </li>
+                        <li class="active">
+                          <a href="favorite.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>收藏夹</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="auto">
+                        <i class="i i-docs icon">
+                        </i>
+                        <span class="font-bold">全部项目</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-lab icon">
+                        </i>
+                        <span class="font-bold">系统管理</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li >
+                          <a href="cataloguemanagement.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>分类管理</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="tagmanagement.html" class="auto">                                                                                   
+                            <i class="i i-dot"></i>
+
+                            <span>标签管理</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="usermanagement.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>用户管理</span>
+                          </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li >
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-statistics icon">
+                        </i>
+                        <span class="font-bold">数据分析</span>
+                      </a>
+                      <ul class="nav dk">
+                        <li >
+                          <a href="chart.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>热点走向</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="chart-compare.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>数据比较</span>
+                          </a>
+                        </li>
+                        <li >
+                          <a href="chart-distribution.html" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>热点分布</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li >
+                      <a href="userlog.html" class="auto">
+                        <i class="i i-grid2 icon">
+                        </i>
+                        <span class="font-bold">用户登录记录</span>
+                      </a>
+                      </li>
+                  </ul>
+                  <div class="line dk hidden-nav-xs"></div>
+                 
+                  </ul>
+                </nav>
+                <!-- / nav -->
+              </div>
+            </section>
+            
+            <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+                <i class="i i-logout"></i>
+              </a>
+              <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+                <i class="i i-circleleft text"></i>
+                <i class="i i-circleright text-active"></i>
+              </a>
+            </footer>
+          </section>
+        </aside>
+        <!-- /.aside -->
+        <section id="content">
+          <section class="hbox stretch">
+          <aside class="aside-sm bg-light dker b-r" id="subNav">
+            <div class="wrapper b-b header">
+            <button href="#modal-add-first-fav" class="btn btn-success btn-preset notopm" data-toggle="modal"><i class="fa fa-plus text"></i><span class="text"> 添加</span></button>
+            <button type="button" class="btn btn-sm btn-success pull-right m-l-xs notopm" title="排序" href="#modal-first-fav-sort" data-toggle="modal"><i class="fa fa-sort"></i></button>
+            </div>
+            <ul class="nav">
+              <li class="b-b active"><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span>收藏夹 A</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t5.jpg" alt="..."></span>收藏夹 B</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t6.jpg" alt="..."></span>收藏夹 C</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t7.jpg" alt="..."></span>收藏夹 D</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t8.jpg" alt="..."></span>收藏夹 E</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t3.jpg" alt="..."></span>收藏夹 F</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t2.jpg" alt="..."></span>收藏夹 G</a></li>
+              <li class="b-b "><a href="#"><i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><span class="thumb-sm avatar pull-left"><img src="images/t1.jpg" alt="..."></span>收藏夹 H</a></li>
+            </ul>
+          </aside>
+
+              <section class="panel-default favsec">
+              
+                            <header class="panel-heading col-md-12">
+                              <h4 class="text-black col-md-6 m-t-xs m-b-xs no-padder">收藏夹 A</h4>
+                              <button type="button" href="#modal-delete" data-toggle="modal" class="btn btn-sm btn-default pull-right m-l-xs" title="删除"><i class="fa fa-trash-o"></i></button>
+                              <button type="button" href="#modal-second-fav-sort" data-toggle="modal" class="btn btn-sm btn-default pull-right m-l-xs" title="排序"><i class="fa fa-sort"></i></button>
+                              <button type="button" href="#modal-edit-first-fav" data-toggle="modal" class="btn btn-sm btn-default pull-right m-l-xs" title="编辑"><i class="fa fa-edit"></i></button>
+                            </header>
+               
+               <section class="col-md-9 favsec no-padder" > 
+                              <section class="hbox stretch" >
+                               <aside class="padder p-r-none p-b-lg">              
+               
+                                    <section class="vbox">
+                                    <section class="scrollable">
+                                     <div class="row wrapper p-r-lg clearfix">
+<div class="col-sm-12 text-left text-left-xs no-padder"> 
+<div class="col-sm-9 no-padder"><h5 class="m-b-xs text-black">子收藏夹-第1期</h5></div>
+<div class="col-sm-3 no-padder"><small class="text-muted inline m-t-sm m-b-sm pull-right">共10篇文章</small></div>
+</div> 
+<div id="filters" class="col-sm-6 button-group no-padder">
+    <button class="btn btn-sm btn-default btn-rounded m-b-xs" data-filter="*">全部文章</button>
+    <button class="btn btn-sm btn-default btn-rounded m-b-xs" data-filter=".hulianwang">互联网</button>
+    <button class="btn btn-sm btn-default btn-rounded m-b-xs" data-filter=".xiaofeidianzi">消费电子</button>
+</div>                                   
+<div class="col-sm-6 text-right text-left-xs no-padder">
+<button type="button" class="btn btn-sm btn-default pull-right m-l-xs" title="添加标签" href="#modal-add-tags" data-toggle="modal"><i class="fa fa-tags"></i></button>
+<button type="button" class="btn btn-sm btn-default pull-right m-l-xs" title="排序" href="#modal-second-fav-sort-diyiqi" data-toggle="modal"><i class="fa fa-sort"></i></button>
+<button type="button" class="btn btn-sm btn-default pull-right m-l-xs" title="编辑" href="#modal-edit-second-fav" data-toggle="modal"><i class="fa fa-edit"></i></button>
+    <div class="btn-group">
+        <button data-toggle="dropdown" class="btn btn-sm  btn-default dropdown-toggle">
+            <span class="dropdown-label">按发布时间排序</span>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-select text-left pull-right pull-none-xs">
+            <li class="sort active" data-sort-by="postedtime">
+                <a href="#"><input type="radio" name="d-s-r" checked="">按发布时间排序</a>
+            </li>
+            <li class="sort" data-sort-by="posttitlename"><a href="#"><input type="radio" name="d-s-r">按文章名排序</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+                                     <div id="container" class="m-b block-fl m-t-sm">
+                                     
+                                     <div class="item col-sm-6 col-md-4 post hulianwang">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p1.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">小米4发布</a></div>
+                                                 <div class="text-danger postedtime">2014年10月11日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>互联网</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     <div class="item col-sm-6 col-md-4 post hulianwang">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p2.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">锤子的困惑</a></div>
+                                                 <div class="text-danger postedtime">2014年12月11日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>互联网</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     <div class="item col-sm-6 col-md-4 post xiaofeidianzi">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p3.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">可穿戴设备的春天</a></div>
+                                                 <div class="text-danger postedtime">2014年08月15日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>消费电子</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     <div class="item col-sm-6 col-md-4 post xiaofeidianzi">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p4.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">摄影设备</a></div>
+                                                 <div class="text-danger postedtime">2014年02月18日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>消费电子</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     <div class="item col-sm-6 col-md-4 post xiaofeidianzi">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p5.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">完美的加工工艺</a></div>
+                                                 <div class="text-danger postedtime">2014年04月11日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>消费电子</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     <div class="item col-sm-6 col-md-4 post hulianwang">
+                                     <section class="panel b-a">
+                                         <div class="clearfix text-center m-b-sm title-pic">
+                                              <div class="picframe">
+                                                  <a href="#"><img src="images/p6.jpg" class="thumb-o"></a>
+                                                  <div class="hover-content">
+                                                  <div class="overlay"></div>
+                                                  <div class="link-contianer">
+                                                  <a href="#" >查看详情</a>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                                 <div class="h5 m-t m-b-xs posttitlename"><a href="#">新的手机应用</a></div>
+                                                 <div class="text-danger postedtime">2014年05月16日</div>
+                                                 <div class="label bg-success m-b-xs">分类：<span>互联网</span></div>
+                                                 <div class="text-muted p-b-md p-t-xs m-b-sm b-b">收藏至：<span>子收藏夹 -第1期</span></div>
+                                               <div class="text-left abs-text">全文内容全文内容全文内容全文内容全文内容全文全文全文全文全文内容全文全文.........</div> 
+                                         
+                                         </div>
+                                         <div class="clearfix panel-footer">
+                                             <a href="#modal-delete" data-toggle="modal" class="pull-right"><i class="i i-trashcan text-muted"></i></a>
+                                             <a href="#" class="m-l-xs"><label class="i-checks m-b-none"><input type="checkbox" name="ids[]"><i></i></label></a>
+                                             <a href="#" class="pull-right m-r"><i class="i i-pencil2 text-muted"></i></a>
+                                         </div>
+                                     </section>
+                                     
+                                     </div>
+                                     
+                                     </div>
+                                     </div>
+                                     </section>
+                                    </section>
+               
+                                                                    
+                               </aside>
+                              </section>
+                              </section>
+               
+               <section class="col-md-3 favsec no-padder">        
+               <section class="hbox stretch" >             
+               <aside class="aside bg-success lt" id="fav001">
+               <section class="vbox animated fadeInRight">
+                 <header class="dker header">
+                   <button href="#modal-add-second-fav" class="btn btn-success bg-empty btn-sm" data-toggle="modal"><i class="fa fa-plus"></i> 添加子收藏夹</button>
+                   
+                 </header>
+                 <section class="scrollable">
+                   <div class="list-group auto list-group-alt no-radius no-borders">
+                     <a class="list-group-item active" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第1期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第2期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第3期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第4期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第5期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第6期</span>
+                     </a>
+                     <a class="list-group-item" href="#">
+                         <i class="fa fa-fw fa-circle-o text-muted text-xs"></i>
+                         <span class="thumb-sm avatar pull-left"><img src="images/t4.jpg" alt="..."></span><span class="subfavbtn">子收藏夹-第7期</span>
+                     </a>
+                   </div>
+                 </section>
+               </section>
+             </aside>
+               </section>
+               </section>
+
+              </section>
+
+          </section>
+          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+        </section>
+      </section>
+    </section>
+  </section>
+  <script src="js/jquery.min.js" charset="UTF-8"></script>
+  <!-- Bootstrap -->
+  <script src="js/bootstrap.js" charset="UTF-8"></script>
+  <!-- App -->
+  <script src="js/app.js"></script>  
+  <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+  <div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header bg-warning">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="m-t-none m-b-none">注意</h3>
+
+          </div>
+            <div class="modal-body wrapper-lg bg-warning lter">
+              <div class="row text-center">
+                <div class="col-sm-12">
+                <h4 class="m-t-none">您确定要删除您选择的项目吗？</h4>
+                </div>
+                
+                <button type="submit" class="btn btn-md btn-success text-uc" data-loading-text="确定中..."><strong>确定</strong></button>
+                
+                <button type="submit" class="btn btn-md btn-danger text-uc m-l-sm" data-loading-text="取消中..."><strong>取消</strong></button>
+                
+              </div>          
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+  <div class="modal fade" id="modal-first-fav-sort" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" style="width: 700px;">
+          <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="m-t-none">排序收藏夹</h3>
+            <small>您可以在此自行排序收藏夹。</small>
+          </div>
+            <div class="modal-body wrapper-md">
+              <div class="row">
+                <div class="col-sm-12">
+                <section class="scrollable wrapper" style="max-height: 450px;">
+                  <div class="">
+                    <ul class="list-group gutter list-group-lg list-group-sp sortable">
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 A
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 B
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 C
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 D
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 E
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 F
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 G
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          收藏夹 H
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </section>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="checkbox m-t-lg">
+                
+                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="取消中..."><strong>取消</strong></button>
+                
+                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                   
+                </div>
+                </div>
+                
+              </div>          
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+  <div class="modal fade" id="modal-second-fav-sort" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" style="width: 700px;">
+          <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="m-t-none">排序子收藏夹</h3>
+            <small>您可以在此自行排序子收藏夹。</small>
+          </div>
+            <div class="modal-body wrapper-md">
+              <div class="row">
+                <div class="col-sm-12">
+                <section class="scrollable wrapper" style="max-height: 450px;">
+                  <div class="">
+                    <ul class="list-group gutter list-group-lg list-group-sp sortable">
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第1期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第2期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第3期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第4期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第5期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第6期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第7期
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          子收藏夹-第8期
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </section>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="checkbox m-t-lg">
+                
+                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="取消中..."><strong>取消</strong></button>
+                
+                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                   
+                </div>
+                </div>
+                
+              </div>          
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+  <div class="modal fade" id="modal-second-fav-sort-diyiqi" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" style="width: 700px;">
+          <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="m-t-none">排序子收藏夹-第1期</h3>
+            <small>您可以在此自行排序该子收藏夹里的文章。</small>
+          </div>
+            <div class="modal-body wrapper-md">
+              <div class="row">
+                <div class="col-sm-12">
+                <section class="scrollable wrapper" style="max-height: 450px;">
+                  <div class="">
+                    <ul class="list-group gutter list-group-lg list-group-sp sortable">
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          小米4发布 <span class="label bg-success m-l-lg">互联网</span><span class="text-danger m-l-lg pull-right">2014年10月11日</span>
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          锤子的困惑<span class="label bg-success m-l-lg">互联网</span><span class="text-danger m-l-lg pull-right">2014年12月11日</span>
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          可穿戴设备的春天<span class="label bg-success m-l-lg">消费电子</span><span class="text-danger m-l-lg pull-right">2014年08月15日</span>
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          摄影设备<span class="label bg-success m-l-lg ">消费电子</span><span class="text-danger m-l-lg pull-right">2014年02月18日</span>
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          完美的加工工艺<span class="label bg-success m-l-lg">消费电子</span><span class="text-danger m-l-lg pull-right">2014年04月11日</span>
+                        </div>
+                      </li>
+                      <li class="list-group-item bg-info">
+                        <span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                        <div class="clear text-white">
+                          新的手机应用<span class="label bg-success m-l-lg">互联网</span><span class="text-danger m-l-lg pull-right">2014年05月16日</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </section>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="checkbox m-t-lg">
+                
+                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="取消中..."><strong>取消</strong></button>
+                
+                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                   
+                </div>
+                </div>
+                
+              </div>          
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+  <div class="modal fade" id="modal-add-tags" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog" style="width: 700px;">
+            <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 class="m-t-none">添加热门标签或趋势标签</h3>
+              <small>您可以在此为选中的文章添加热门标签或趋势标签。</small>
+            </div>
+              <div class="modal-body wrapper-lg">
+                <div class="row">
+                  <div class="col-sm-12">
+                  <form class="form-horizontal" method="get">
+                                         <div class="form-group">
+                                         <div class="radio col-sm-6 text-center p-b-lg">
+                                           <label class="h4">
+                                             <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                             添加热门标签
+                                           </label>
+                                         </div>
+                                         <div class="radio col-sm-6 text-center p-b-lg">
+                                           <label class="h4">
+                                             <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                             添加趋势标签
+                                           </label>
+                                         </div>
+                                       <div class="line line-dashed b-b line-lg pull-in"></div>
+  
+                                           <div class="btn-toolbar m-b-sm m-t-sm btn-editor" data-role="editor-toolbar" data-target="#editor">
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+                                                 <ul class="dropdown-menu">
+                                                 </ul>
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="字体大小"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                                 <ul class="dropdown-menu">
+                                                 <li><a data-edit="fontSize 5"><font size="5">巨大</font></a></li>
+                                                 <li><a data-edit="fontSize 3"><font size="3">正常</font></a></li>
+                                                 <li><a data-edit="fontSize 1"><font size="1">小</font></a></li>
+                                                 </ul>
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm" data-edit="bold" title="加粗 (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="italic" title="斜体 (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="strikethrough" title="中划线"><i class="fa fa-strikethrough"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm" data-edit="insertunorderedlist" title="点列"><i class="fa fa-list-ul"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="insertorderedlist" title="数字列"><i class="fa fa-list-ol"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="outdent" title="减少缩进 (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="indent" title="缩进 (Tab)"><i class="fa fa-indent"></i></a>
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm" data-edit="justifyleft" title="左对齐 (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="justifycenter" title="居中 (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="justifyright" title="右对齐 (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="justifyfull" title="左右对齐 (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="超链接"><i class="fa fa-link"></i></a>
+                                               <div class="dropdown-menu">
+                                                 <div class="input-group m-l-xs m-r-xs">
+                                                   <input class="form-control input-sm" placeholder="URL" type="text" data-edit="createLink"/>
+                                                   <div class="input-group-btn">
+                                                     <button class="btn btn-default btn-sm" type="button">添加</button>
+                                                   </div>
+                                                 </div>
+                                               </div>
+                                               <a class="btn btn-default btn-sm" data-edit="unlink" title="移除超链接"><i class="fa fa-cut"></i></a>
+                                             </div>
+                                             
+                                             <div class="btn-group hide">
+                                               <a class="btn btn-default btn-sm" title="插入图片 (或拖拽)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+                                               <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                                             </div>
+                                             <div class="btn-group m-b-xs">
+                                               <a class="btn btn-default btn-sm" data-edit="undo" title="撤销 (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                               <a class="btn btn-default btn-sm" data-edit="redo" title="重做 (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                                             </div>
+                                           
+                                           <div id="editor" class="form-control" style="overflow:scroll;height:100%;min-height:300px;;">
+                                           </div>
+                                          </div>
+                                        </div>
+                                            
+                                                                                                      
+                                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                    <div class="checkbox m-t-lg">
+                                                    
+                                                    <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="重置中..."><strong>重置</strong></button>
+                                                    
+                                                    <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="添加中..."><strong>添加</strong></button>
+                                                       
+                                                    </div>
+                                                  </form>
+                                  </div>
+                  
+                </div>          
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div>
+  <div class="modal fade" id="modal-add-first-fav" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="m-t-none">添加收藏夹</h3>
+          <small>您可以在此添加收藏夹。</small>
+        </div>
+          <div class="modal-body wrapper-lg">
+            <div class="row">
+              <div class="col-sm-12">
+              <form class="form-horizontal" method="get">
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">收藏夹名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="text" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，不能使用特殊符号。</span>
+                                     </div>
+                                     </div>
+                                   <div class="line line-dashed b-b line-lg pull-in"></div>
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">收藏夹别名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="password" name="password" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，请使用英文字母，大小写不限，不能使用特殊符号和空格。</span>
+                                     </div>
+                                    </div>
+                                        
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="form-group">
+                                                  <label class="col-sm-3 control-label">上传缩略图</label>
+                                                  <div class="col-sm-9">
+
+                                                    <div class="dropfile visible-lg col-sm-12 no-padder">
+                                                      <small>请将缩略图拖拽至此</small>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="checkbox m-t-lg">
+                                                
+                                                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="取消中..."><strong>取消</strong></button>
+                                                
+                                                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                                                   
+                                                </div>
+                                              </form>
+                              </div>
+              
+            </div>          
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  <div class="modal fade" id="modal-add-second-fav" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="m-t-none">添加子收藏夹</h3>
+            <small>您可以在此添加子收藏夹。</small>
+          </div>
+            <div class="modal-body wrapper-lg">
+              <div class="row">
+                <div class="col-sm-12">
+                <form class="form-horizontal" method="get">
+                                       <div class="form-group">
+                                       <label class="col-sm-3 control-label">子收藏夹名<span class="redstar"> *</span></label>
+                                       <div class="col-sm-9">
+                                       <input type="text" class="form-control">
+                                       <span class="help-block m-b-none">此项为必填，不能使用特殊符号。</span>
+                                       </div>
+                                       </div>
+                                     <div class="line line-dashed b-b line-lg pull-in"></div>
+                                       <div class="form-group">
+                                       <label class="col-sm-3 control-label">子收藏夹别名<span class="redstar"> *</span></label>
+                                       <div class="col-sm-9">
+                                       <input type="password" name="password" class="form-control">
+                                       <span class="help-block m-b-none">此项为必填，请使用英文字母，大小写不限，不能使用特殊符号和空格。</span>
+                                       </div>
+                                      </div>
+                                          
+                                                  <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-3 control-label">上传缩略图</label>
+                                                    <div class="col-sm-9">
+  
+                                                      <div class="dropfile visible-lg col-sm-12 no-padder">
+                                                        <small>请将缩略图拖拽至此</small>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  
+                                                  <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                  <div class="checkbox m-t-lg">
+                                                  
+                                                  <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="取消中..."><strong>取消</strong></button>
+                                                  
+                                                  <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                                                     
+                                                  </div>
+                                                </form>
+                                </div>
+                
+              </div>          
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+  <div class="modal fade" id="modal-edit-first-fav" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="m-t-none">编辑收藏夹</h3>
+          <small>您可以在此编辑收藏夹名字和缩略图。</small>
+        </div>
+          <div class="modal-body wrapper-lg">
+            <div class="row">
+              <div class="col-sm-12">
+              <form class="form-horizontal" method="get">
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">收藏夹名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="text" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，不能使用特殊符号。</span>
+                                     </div>
+                                     </div>
+                                   <div class="line line-dashed b-b line-lg pull-in"></div>
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">收藏夹别名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="password" name="password" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，请使用英文字母，大小写不限，不能使用特殊符号和空格。</span>
+                                     </div>
+                                    </div>
+                                        
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="form-group">
+                                                  <label class="col-sm-3 control-label">上传缩略图</label>
+                                                  <div class="col-sm-9">
+                                                  <div class=" col-sm-4 no-padder">
+                                                      <img src="images/t4.jpg" class="img-circle uploadedthumb">
+                                                  </div>
+                                                    <div class="dropfile visible-lg col-sm-8 no-padder">
+                                                      <small>请将缩略图拖拽至此</small>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="checkbox m-t-lg">
+                                                
+                                                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="删除..."><strong>删除</strong></button>
+                                                
+                                                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                                                   
+                                                </div>
+                                              </form>
+                              </div>
+              
+            </div>          
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  <div class="modal fade" id="modal-edit-second-fav" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="m-t-none">编辑子收藏夹</h3>
+          <small>您可以在此编辑子收藏夹名字和缩略图。</small>
+        </div>
+          <div class="modal-body wrapper-lg">
+            <div class="row">
+              <div class="col-sm-12">
+              <form class="form-horizontal" method="get">
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">子收藏夹名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="text" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，不能使用特殊符号。</span>
+                                     </div>
+                                     </div>
+                                   <div class="line line-dashed b-b line-lg pull-in"></div>
+                                     <div class="form-group">
+                                     <label class="col-sm-3 control-label">子收藏夹别名<span class="redstar"> *</span></label>
+                                     <div class="col-sm-9">
+                                     <input type="password" name="password" class="form-control">
+                                     <span class="help-block m-b-none">此项为必填，请使用英文字母，大小写不限，不能使用特殊符号和空格。</span>
+                                     </div>
+                                    </div>
+                                        
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="form-group">
+                                                  <label class="col-sm-3 control-label">上传缩略图</label>
+                                                  <div class="col-sm-9">
+                                                  <div class=" col-sm-4 no-padder">
+                                                      <img src="images/t4.jpg" class="img-circle uploadedthumb">
+                                                  </div>
+                                                    <div class="dropfile visible-lg col-sm-8 no-padder">
+                                                      <small>请将缩略图拖拽至此</small>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                <div class="checkbox m-t-lg">
+                                                
+                                                <button type="submit" class="btn btn-md btn-danger pull-right text-uc m-t-n-xs m-l-md" data-loading-text="删除中..."><strong>删除</strong></button>
+                                                
+                                                <button type="submit" class="btn btn-md btn-success pull-right text-uc m-t-n-xs" data-loading-text="保存中..."><strong>保存</strong></button>
+                                                   
+                                                </div>
+                                              </form>
+                              </div>
+              
+            </div>          
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  <script src="js/charts/sparkline/jquery.sparkline.min.js"></script>
+
+  <script src="js/calendar/bootstrap_calendar.js"></script>
+  <script src="js/calendar/demo.js"></script>
+  
+  <!-- wysiwyg -->
+  <script src="js/wysiwyg/jquery.hotkeys.js"></script>
+  <script src="js/wysiwyg/bootstrap-wysiwyg.js"></script>
+  <script src="js/wysiwyg/demo.js"></script>
+
+  <script src="js/sortable/jquery.sortable.js"></script>
+  <script src="js/app.plugin.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script>
+  
+      var $container = $('#container').isotope({
+          getSortData: {
+              posttitlename: '.posttitlename',
+              postedtime: '.postedtime'
+          }
+      });
+  
+  
+      $(".text-left-xs .dropdown-select li").click(function () {
+          var sortData = $(this).data("sort-by");
+          $container.isotope({ sortBy: sortData,sortAscending: false})
+      })
+  
+  
+      $("#filters button").click(function () {
+          var fitlerData = $(this).data("filter");
+          $container.isotope({
+              filter: fitlerData
+          });
+  
+      })
+  
+  </script>
+</body>
+</html>

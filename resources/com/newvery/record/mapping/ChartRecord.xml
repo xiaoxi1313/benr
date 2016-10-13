@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<select id="findChartByCondition" parameterType="java.util.HashMap" resultType="ChartRecord">
+	    select count(id) as 'sum',  unix_timestamp(CONCAT(DATE_FORMAT(createTime, '%Y-%m-%d')," 00:00:00"))*1000 as 'date'  from tb_article_tag 
+	    	<where>  
+		        <if test="tagId > 0 ">  
+		            tagId = #{tagId}  
+		        </if>  
+		        <if test="beginDate!=null and beginDate!='' ">  
+		           <![CDATA[and createTime >= #{beginDate}]]> 
+		        </if>  
+		        <if test="endDate!=null and endDate!='' ">  
+		           <![CDATA[and createTime <= #{endDate}]]> 
+		        </if>
+		        <if test="parentFavoriteId > 0 ">  
+		             and articleId in (select articleId from tb_article_favorite where parentFavoriteId = #{parentFavoriteId}
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if> 
+	        </where>
+			  GROUP BY date, tagId 
+			   ORDER BY createTime
+	</select>
+	
+	<select id="countTotalChartByCondition" parameterType="java.util.HashMap" resultType="int">
+	    select count(id) as 'sum'  from tb_article_tag 
+	    	<where>  
+		        <if test="tagId > 0 ">  
+		            tagId = #{tagId}  
+		        </if>  
+		        <if test="beginDate!=null and beginDate!='' ">  
+		           <![CDATA[and createTime >= #{beginDate}]]> 
+		        </if>  
+		        <if test="endDate!=null and endDate!='' ">  
+		           <![CDATA[and createTime <= #{endDate}]]> 
+		        </if>
+		        <if test="parentFavoriteId > 0 ">  
+		             and articleId in (select articleId from tb_article_favorite where parentFavoriteId = #{parentFavoriteId}
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if> 
+	        </where>
+	</select>
+	
+	<select id="countMaxChartByCondition" parameterType="java.util.HashMap" resultType="int">
+		select  MAX(a.sum) from (
+	    select count(id) as 'sum',  unix_timestamp(CONCAT(DATE_FORMAT(createTime, '%Y-%m-%d')," 00:00:00"))*1000 as 'date'  from tb_article_tag 
+	    	<where>  
+		        <if test="tagId > 0 ">  
+		            tagId = #{tagId}  
+		        </if>  
+		        <if test="beginDate!=null and beginDate!='' ">  
+		           <![CDATA[and createTime >= #{beginDate}]]> 
+		        </if>  
+		        <if test="endDate!=null and endDate!='' ">  
+		           <![CDATA[and createTime <= #{endDate}]]> 
+		        </if>
+		        <if test="parentFavoriteId > 0 ">  
+		             and articleId in (select articleId from tb_article_favorite where parentFavoriteId = #{parentFavoriteId}
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if> 
+	        </where>
+	         GROUP BY date, tagId 
+			   ORDER BY createTime ) a
+	</select>
+	
+	<select id="findArticleChartByCondition" parameterType="java.util.HashMap" resultType="ArticleRecord">
+	    select a.* from tb_article a left outer join tb_article_tag b on a.id = b.articleId 
+	    	<where>  
+		        <if test="tagId > 0 ">  
+		            b.tagId = #{tagId}  
+		        </if>  
+		        <if test="beginDate!=null and beginDate!='' ">  
+		           <![CDATA[and b.createTime >= #{beginDate}]]> 
+		        </if>  
+		        <if test="endDate!=null and endDate!='' ">  
+		           <![CDATA[and b.createTime <= #{endDate}]]> 
+		        </if>
+		        <if test="parentFavoriteId > 0 ">  
+		             and b.articleId in (select articleId from tb_article_favorite where parentFavoriteId = #{parentFavoriteId}
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if> 
+	        </where>
+			   ORDER BY b.createTime
+	</select>
+	
+	<select id="findChartTagByCondition" parameterType="java.util.HashMap" resultType="ChartTagRecord">
+	   	select count(a.id) as 'sum',b.name as name  from tb_article_tag a left outer join tb_tag b on a.tagId = b.id
+	    	<where>  
+		        <if test="tagId > 0 ">  
+		            tagId = #{tagId}  
+		        </if>  
+		        <if test="beginDate!=null and beginDate!='' ">  
+		           <![CDATA[and createTime >= #{beginDate}]]> 
+		        </if>  
+		        <if test="endDate!=null and endDate!='' ">  
+		           <![CDATA[and createTime <= #{endDate}]]> 
+		        </if>
+		        <if test="parentFavoriteId > 0 ">  
+		             and articleId in (select articleId from tb_article_favorite where parentFavoriteId = #{parentFavoriteId}
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if> 
+		        <if test="parentFavoriteIds!=null and parentFavoriteIds!='' ">  
+		             and articleId in (select articleId from tb_article_favorite where parentFavoriteId in (#{parentFavoriteIds}) 
+		            <if test="childFavoriteId > 0 ">  
+		           	 	and childFavoriteId = #{childFavoriteId}  
+		        	</if> 
+		        	<if test="childFavoriteIds!=null and childFavoriteIds!='' ">  
+		           	 	and childFavoriteId in (#{childFavoriteIds})   
+		        	</if> 
+		        	 )
+		        </if>
+	        </where>
+	         GROUP BY name 
+	</select>
+</mapper>

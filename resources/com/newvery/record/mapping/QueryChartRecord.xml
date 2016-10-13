@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertQueryChart" parameterType="QueryChartRecord" >
+		insert into tb_query_chart 
+		(title,userId,type,createTime,deleted,content) 
+		values
+		(#{title},#{userId},#{type},NOW(),0,#{content})
+	</insert>
+	
+	<update id="deleteQueryChartById" parameterType="int">
+		update tb_query_chart set  
+			deleted = 1 
+		where 
+		id=#{id} 
+	</update>
+	
+	<select id="findQueryChart" parameterType="int" resultType="QueryChartRecord">
+		select * from tb_query_chart 
+		<where>  
+		    deleted=0 
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="type != null">  
+	           and (type = #{type})    
+	        </if>
+	    </where>
+	     order by id desc
+	</select>
+	
+	<select id="findQueryChartByPK" parameterType="int" resultType="QueryChartRecord">
+		select * from tb_query_chart where id = #{id}#
+	</select>
+	
+</mapper>

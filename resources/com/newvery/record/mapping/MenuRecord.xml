@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertMenu" parameterType="MenuRecord">
+		insert into tb_menu 
+		(menu_name,menu_key,menu_url,menu_icon,create_time,modify_time,locale,position,parent_id,deleted) 
+		values
+		(#{menu_name},#{menu_key},#{menu_url},#{menu_icon},#{create_time},#{modify_time},#{locale},#{position},#{parent_id},#{deleted})
+	</insert>
+	
+	<update id="updateMenu" parameterType="MenuRecord">
+		update tb_menu set 
+		menu_name=#{menu_name},menu_key=#{menu_key},menu_url=#{menu_url},menu_icon=#{menu_icon},modify_time=#{modify_time},locale=#{locale},
+		position=#{position},parent_id=#{parent_id} 
+		where 
+		menu_id=#{menu_id}
+	</update>
+	
+	<delete id="deleteMenu" parameterType="int">
+		update tb_menu set  
+			deleted = 1 
+		where 
+		menu_id=#{menu_id}
+	</delete>
+	
+	<select id="listMenu" resultType="MenuRecord">
+		select * from tb_menu where (deleted=0 or deleted is NULL)  order by menu_id
+	</select>
+	
+	<select id="findMenulistByParent"  parameterType="int" resultType="MenuRecord">
+		select * from tb_menu where (deleted=0 or deleted is NULL) and parent_id = #{value}# order by menu_id
+	</select>
+	
+	<select id="findMenuByPK" parameterType="int" resultType="MenuRecord">
+		select * from tb_menu where (deleted=0 or deleted is NULL) and menu_id=#{menu_id}
+	</select>
+	
+	<select id="countMenuRecord" parameterType="java.util.Map" resultType="int">
+		select count(menu_id) from tb_menu where (deleted=0 or deleted is NULL) and menu_name=#{menu_name} and parent_id=#{parent_id}
+	</select>
+
+</mapper>

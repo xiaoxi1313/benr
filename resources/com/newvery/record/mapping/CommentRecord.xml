@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	<resultMap id="comment" type="CommentRecord" > 
+		<id column="id" property="id"/> 
+		<result column="userId" property="userId"/>
+		<result column="articleId" property="articleId"/>
+		<result column="parentId" property="parentId"/>
+		<result column="comment" property="comment"/>
+		<result column="createTime" property="createTime"/>
+		<result column="status" property="status"/>
+		<result column="deleted" property="deleted"/>
+		
+		<association property="user" select="findUserByPK" column="userId" javaType="UserRecord"></association>
+		<association property="children" select="findCommentByParentId" column="id" javaType="ArrayList"></association>
+	</resultMap>
+	
+	<insert id="insertComment" parameterType="CommentRecord" >
+		insert into tb_comment 
+		(userId,articleId,parentId,comment,createTime,status,deleted) 
+		values
+		(#{userId},#{articleId},#{parentId},#{comment},#{createTime},#{status},#{deleted})
+	</insert>
+	
+	<delete id="deleteCommentById" parameterType="int">
+		update tb_comment set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</delete>
+	
+	<select id="findCommentByArticleId" parameterType="int" resultMap="comment">
+		select * from tb_comment where articleId = #{articleId}
+	</select>
+	
+	<select id="findParentCommentByArticleId" parameterType="int" resultMap="comment">
+		select * from tb_comment where articleId = #{articleId} and parentId=0 order by id desc
+	</select>
+	
+	<select id="findCommentByParentId" parameterType="int" resultMap="comment">
+		select * from tb_comment where parentId = #{parentId}
+	</select>
+</mapper>

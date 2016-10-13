@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+    <resultMap id="articleFavorite" type="ArticleFavoriteRecord" > 
+		<id column="id" property="id"/>
+		<result column="articleId" property="articleId"/>
+		<result column="parentFavoriteId" property="parentFavoriteId"/>
+		<result column="childFavoriteId" property="childFavoriteId"/>
+		<result column="userId" property="userId"/>
+		<result column="deleted" property="deleted"/>
+		<result column="createTime" property="createTime"/>
+		<result column="position" property="position"/>
+		
+		<association property="childFavorite" select="findFavoriteByPK" column="childFavoriteId" javaType="FavoriteRecord"></association>
+		<association property="parentFavorite" select="findFavoriteByPK" column="parentFavoriteId" javaType="FavoriteRecord"></association>
+	</resultMap>
+	
+	<insert id="insertArticleFavorite" parameterType="ArticleFavoriteRecord" >
+		insert into tb_article_favorite 
+		(articleId,parentFavoriteId,childFavoriteId,userId,deleted,createTime,position) 
+		values
+		(#{articleId},#{parentFavoriteId},#{childFavoriteId},#{userId},#{deleted},#{createTime},#{position})
+	</insert>
+	
+	<update id="updateArticleFavorite" parameterType="ArticleFavoriteRecord">
+		update tb_article_favorite set 
+			articleId=#{articleId},parentFavoriteId=#{parentFavoriteId},childFavoriteId=#{childFavoriteId},userId=#{userId},deleted=#{deleted},position=#{position}
+		where 
+		id=#{id} 
+	</update>
+	
+	<delete id="deleteArticleFavoriteAndUserById" parameterType="java.util.Map">
+		delete from tb_article_favorite where userId=#{userId} and articleId = #{articleId}
+	</delete>
+	<delete id="deleteArticleFavoriteById">
+		delete from tb_article_favorite where id = #{id}
+	</delete>
+	
+	<delete id="deleteGroupArticleUser" parameterType="java.util.Map">
+		delete from tb_article_favorite_group where favoriteGroupId=#{favoriteGroupId} and articleId = #{articleId}
+	</delete>
+	
+	<select id="findArticleFavoriteByArticleId" parameterType="int" resultType="ArticleFavoriteRecord">
+		select * from tb_article_favorite where articleId = #{articleId} and deleted=0
+	</select>
+	
+	<select id="findArticleFavoriteById" parameterType="int" resultType="ArticleFavoriteRecord">
+		select * from tb_article_favorite where id = #{id} and deleted=0
+	</select>
+	
+	<select id="findArticleFavorite" parameterType="ArticleFavoriteRecord" resultMap="articleFavorite">
+		select * from tb_article_favorite 
+		<where>  
+		     deleted=0 
+		    <if test="userId > 0">  
+		         and userId = #{userId}
+		    </if>
+		    <if test="articleId > 0">  
+		         and articleId = #{articleId}
+		    </if>
+		    <if test="parentFavoriteId > 0">  
+		         and parentFavoriteId = #{parentFavoriteId}
+		    </if>
+		    <if test="childFavoriteId > 0">  
+		         and childFavoriteId = #{childFavoriteId}
+		    </if>
+		</where>
+		limit 0,1
+	</select>
+	
+	<select id="findArticleFavoriteByUserAndArticle" parameterType="java.util.Map" resultMap="articleFavorite"> 
+		select id,childFavoriteId,parentFavoriteId from tb_article_favorite where  userId = #{userId} and articleId = #{articleId}
+	</select>
+</mapper>

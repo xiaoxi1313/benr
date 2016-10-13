@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	<resultMap id="favorite" type="FavoriteRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		<result column="createTime" property="createTime"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="alias" property="alias"/>
+		<result column="deleted" property="deleted"/>
+		<result column="userId" property="userId"/>
+		<result column="img" property="img"/>
+		<result column="parentId" property="parentId"/>
+		<result column="position" property="position"/>
+		<result column="completed" property="completed"/>
+		<result column="type" property="type"/>
+		
+		<association property="articleNum" select="countArticleNumByFavoriteId" column="id" javaType="int"></association>
+	</resultMap>
+	
+	<resultMap id="favoriteWithChildren" type="FavoriteRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		<result column="createTime" property="createTime"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="alias" property="alias"/>
+		<result column="deleted" property="deleted"/>
+		<result column="userId" property="userId"/>
+		<result column="img" property="img"/>
+		<result column="parentId" property="parentId"/>
+		<result column="position" property="position"/>
+		<result column="completed" property="completed"/>
+		<result column="type" property="type"/>
+		
+		<association property="articleNum" select="countArticleNumByFavoriteId" column="id" javaType="int"></association>
+		<association property="children" select="listChildFavoriteWithGroupByParentId" column="id" javaType="ArrayList"></association>
+	</resultMap>
+	
+	<resultMap id="favoriteWithGroup" type="FavoriteRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		<result column="createTime" property="createTime"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="alias" property="alias"/>
+		<result column="deleted" property="deleted"/>
+		<result column="userId" property="userId"/>
+		<result column="img" property="img"/>
+		<result column="parentId" property="parentId"/>
+		<result column="position" property="position"/>
+		<result column="completed" property="completed"/>
+		<result column="type" property="type"/>
+		
+		<association property="articleNum" select="countArticleNumByFavoriteId" column="id" javaType="int"></association>
+		<association property="favoriteGroupList" select="listFavoriteGroupByFavoriteId" column="id" javaType="ArrayList"></association>
+	</resultMap>
+	
+	<insert id="insertFavorite" useGeneratedKeys="true" keyProperty="id" parameterType="FavoriteRecord">
+		insert into tb_favorite 
+		(createTime,modifyTime,name,alias,locale,deleted,userId,img,parentId,position,articleNum,completed,type) 
+		values
+		(#{createTime},#{modifyTime},#{name},#{alias},#{locale},#{deleted},#{userId},#{img},#{parentId},#{position},#{articleNum},#{completed},#{type})
+	</insert>
+	
+	<update id="updateFavorite" parameterType="FavoriteRecord">
+		update tb_favorite set 
+		modifyTime=#{modifyTime},name=#{name},alias=#{alias},locale=#{locale},deleted=#{deleted},userId=#{userId},img=#{img},parentId=#{parentId},position=#{position},articleNum=#{articleNum},completed=#{completed},type=#{type}
+		where 
+		id = #{id}#
+	</update>
+	
+	<update id="deleteFavorite" parameterType="int">
+		update tb_favorite set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<update id="deleteFavoriteByUserId" parameterType="int">
+		update tb_favorite set  
+			deleted = 1 
+		where 
+		userId=#{userId}# 
+	</update>
+	
+	<select id="listFavorite" resultMap="favorite">
+		select * from tb_favorite where deleted=0 order by id
+	</select>
+	
+	<select id="findFavoriteByPK" parameterType="int" resultMap="favorite">
+		select * from tb_favorite where id = #{value}#
+	</select>
+	
+	<select id="findFavoriteByPKWithGroup" parameterType="int" resultMap="favoriteWithGroup">
+		select * from tb_favorite where id = #{value}#
+	</select>
+	
+	<select id="findFavoriteByPKWithChildren" parameterType="int" resultMap="favoriteWithChildren">
+		select * from tb_favorite where id = #{value}#
+	</select>
+	
+	<select id="findFavoriteByName" parameterType="String" resultMap="favorite">
+		select * from tb_favorite where name = #{name}
+	</select>
+	
+	<select id="findFavoriteByNameAndUserId" parameterType="java.util.HashMap" resultMap="favorite">
+		select * 
+		from 
+			tb_favorite 
+		where 
+			deleted = 0 
+			<if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')    
+	        </if>
+	</select>
+	
+	<select id="countFavoriteRecord" parameterType="String" resultType="int">
+		select count(name) from tb_favorite where name = #{value}#
+	</select>
+	
+	<select id="countFavoriteByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(id) from tb_favorite  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')    
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	    </where>
+	</select>
+	<select id="findFavoriteByPage" parameterType="java.util.HashMap" resultMap="favorite">
+		select * from tb_favorite  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')  
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="adminOnly != null">  
+	           and (userId in (select admin_id from tb_admin_role where role_id != 4 and role_id != 5))    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	    </where>
+		ORDER BY position, id 
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<select id="findFavoriteWithChildrenByPage" parameterType="java.util.HashMap" resultMap="favoriteWithChildren">
+		select * from tb_favorite  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')  
+	        </if>
+	        <if test="userId > 0">  
+	           and (userId = #{userId})    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	    </where>
+		ORDER BY position, id 
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<select id="listAllParentFavorite" resultMap="favorite">
+		select * from tb_favorite where deleted=0 and parentId=0 order by id desc 
+	</select>
+	
+	<select id="listAllParentFavoriteByUserId" parameterType="int" resultMap="favorite">
+		select * from tb_favorite where deleted=0 and parentId=0 and userId=#{userId} order by position, id
+	</select>
+	
+	<select id="listAllParentFavoriteWithChildren" resultMap="favoriteWithChildren">
+		select * from tb_favorite where deleted=0 and parentId=0 order by id desc 
+	</select>
+	
+	<select id="listAllParentFavoriteWithChildrenByUserId" parameterType="java.util.HashMap" resultMap="favoriteWithChildren">
+		select * from tb_favorite 
+		<where>
+			 deleted=0 and parentId=0 
+			  <if test="userId > 0">  
+	          	  and (userId = #{userId})    
+	          </if> 
+	          <if test="year!=null and year!='' ">  
+	              and Year(createTime) = #{year} 
+	        </if>
+		</where>
+		 order by position, id
+	</select>
+	
+	<select id="listFavoriteByParentId" parameterType="int" resultMap="favorite">
+		select * from tb_favorite where deleted=0 and parentId=#{parentId} order by position, id
+	</select>
+	
+	<select id="listFavoriteByCommonUserId" parameterType="int" resultMap="favorite">
+	    select
+			f.*
+		from 
+			tb_favorite f, tb_user_favorite uf
+		where 
+			f.deleted = 0 and uf.deleted = 0 and f.id = uf.childFavoriteId and uf.userId = #{userId}
+		order by
+			uf.id desc
+	</select>
+	
+	<select id="listRecentChildrenByNum" parameterType="int" resultMap="favorite">
+	    SELECT 
+			* 
+		FROM 
+			tb_favorite 
+		WHERE 
+			deleted = 0 and parentId > 0 
+		ORDER BY
+			modifyTime DESC
+		LIMIT
+			0, #{num}
+	</select>
+	
+	<update id="updateFavoriteArticleNum" parameterType="FavoriteRecord">
+		update tb_favorite set articleNum=#{articleNum} where id = #{id}
+	</update>
+	
+	<select id="countArticleNumByFavoriteId" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(a.id)
+		FROM
+			tb_favorite f, tb_article a, tb_article_favorite af
+		WHERE
+		IF(f.parentId = 0, af.parentFavoriteId = f.id, af.childFavoriteId = f.id) 	
+		AND
+			a.id = af.articleId
+		AND
+			f.deleted = 0
+		AND
+			a.deleted = 0
+		AND
+			af.deleted = 0
+		AND
+			f.id = #{id};
+	</select>
+	
+	<select id="listChildFavoriteByParentId" parameterType="int" resultType="FavoriteRecord">
+		SELECT
+			*
+		FROM
+			tb_favorite
+		WHERE
+			deleted = 0 and parentId = #{id};
+	</select>
+	
+	<select id="listChildFavoriteWithGroupByParentId" parameterType="int" resultMap="favoriteWithGroup">
+		SELECT
+			*
+		FROM
+			tb_favorite
+		WHERE
+			deleted = 0 and parentId = #{id};
+	</select>
+	
+	<select id="findMyShareFavoriteList" resultMap="favoriteWithChildren" parameterType="java.util.Map">
+		SELECT
+			*
+		FROM
+			tb_favorite
+		WHERE
+			deleted = 0 
+			<if test="year != null">
+				and year(createTime) = #{year}
+			</if>
+			<if test="userId != null">
+				and id in(select parentFavoriteId from tb_user_share_favorite where userId = #{userId})
+			</if>
+			
+	</select>
+</mapper>

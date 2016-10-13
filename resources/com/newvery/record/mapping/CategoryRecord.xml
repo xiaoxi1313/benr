@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true">  
+        <property name="timeToIdleSeconds" value="3600"/> 
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>  
+        <property name="maxEntriesLocalDisk" value="10000000"/>  
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>  
+    </cache>   -->
+	
+	<resultMap id="categoryResult" type="CategoryRecord" > 
+		<id column="id" property="id"/> 
+		<result column="name" property="name"/>
+		<result column="alias" property="alias"/>
+		<result column="createTime" property="createTime"/>
+		<result column="parentId" property="parentId"/>
+		<result column="description" property="description"/>
+		<result column="deleted" property="deleted"/>
+		<result column="articleNum" property="articleNum"/>
+		<result column="tagName" property="tagName"/>
+		
+		<association property="parentCategory" select="findCategoryByPK" column="parentId" javaType="CategoryRecord"></association>
+	</resultMap>
+	
+	<insert id="insertCategory" useGeneratedKeys="true" keyProperty="id" parameterType="CategoryRecord">
+		insert into tb_category 
+		(createTime,modifyTime,description,name,locale,deleted,alias,articleNum,parentId,tagName) 
+		values
+		(#{createTime},#{modifyTime},#{description},#{name},#{locale},#{deleted},#{alias},#{articleNum},#{parentId},#{tagName})
+	</insert>
+	
+	<update id="updateCategory" parameterType="CategoryRecord">
+		update tb_category set 
+		modifyTime=#{modifyTime},description=#{description},name=#{name},locale=#{locale},alias=#{alias},articleNum=#{articleNum},parentId=#{parentId},tagName=#{tagName}
+		where 
+		id = #{id}#
+	</update>
+	
+	<update id="deleteCategory" parameterType="int">
+		update tb_category set  
+			deleted = 1 
+		where 
+		id=#{id}# 
+	</update>
+	
+	<update id="batchDeleteCategory" parameterType="java.util.HashMap">
+	    update tb_category set  
+			deleted = 1 
+		where 
+		id IN(
+       		<foreach item="val" index="index" collection="categoryIdList" separator=",">
+          		#{val}
+  			</foreach>)
+	</update>
+	
+	<select id="listCategory" resultType="CategoryRecord" useCache="false">
+		select * from tb_category where deleted=0 order by id
+	</select>
+	
+	<select id="listCategoryByParentId" parameterType="int" resultType="CategoryRecord" useCache="false">
+		select * from tb_category where deleted=0 and parentId=#{parentId} order by id
+	</select>
+	
+	<select id="findCategoryByPK" parameterType="int" resultType="CategoryRecord" useCache="true">
+		select * from tb_category where id = #{value}
+	</select>
+	
+	<select id="countCategoryRecord" parameterType="String" resultType="int">
+		select count(name) from tb_category where name = #{value}#
+	</select>
+	
+	<select id="countCategoryByPage" parameterType="java.util.HashMap" resultType="int" useCache="false">
+		select count(id) from tb_category  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')    
+	        </if>
+	        <if test="parentId > 0">  
+	           and (parentId = #{parentId})    
+	        </if>
+	        <if test="isParent > 0">  
+	           and (parentId = 0)    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	    </where>
+	</select>
+	<select id="findCategoryByPage" parameterType="java.util.HashMap" resultMap="categoryResult" useCache="false">
+		select * from tb_category  
+		<where>  
+		    deleted=0 
+			<if test="name!=null and name!=''">  
+	           and (name like '%${name}%')  
+	        </if>
+	        <if test="parentId > 0">  
+	           and (parentId = #{parentId})    
+	        </if>
+	        <if test="isParent > 0">  
+	           and (parentId = 0)    
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and createTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and createTime <= #{endDate}]]> 
+	        </if>
+	        <if test="userGroupId !=  null">
+	        	and id in(select parentCategoryId from tb_group_category where userGroupId = #{userGroupId})
+	        </if>
+	        <if test="userId !=  null">
+	        	and id in(select parentCategoryId from tb_user_category where userId = #{userId})
+	        </if>
+	    </where>
+		<choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY id DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<select id="listAllParent" resultType="CategoryRecord" useCache="false">
+		select * from tb_category where deleted=0 and parentId=0 order by id
+	</select>
+	
+	<update id="updateCategoryArticleNum" parameterType="CategoryRecord">
+		update tb_category set articleNum=#{articleNum} where id = #{id}
+	</update>
+	
+	<select id="findCategoryByName" parameterType="java.lang.String" resultType="CategoryRecord" useCache="false">
+		select * from tb_category where name=#{name} limit 0,1
+	</select>
+</mapper>

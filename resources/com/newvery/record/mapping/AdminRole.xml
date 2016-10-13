@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<insert id="insertAdminRole" parameterType="AdminRole" >
+		insert into tb_admin_role 
+		(role_id,admin_id) 
+		values
+		(#{role_id},#{admin_id})
+	</insert>
+	
+	<delete id="deleteAdminRoleByAdmin" parameterType="int">
+		delete from tb_admin_role 
+		where 
+		admin_id=#{admin_id}# 
+	</delete>
+	
+	<select id="findAdminRoleByAdmin" parameterType="int" resultType="AdminRole">
+		select * from tb_admin_role where admin_id = #{admin_id}
+	</select>
+</mapper>

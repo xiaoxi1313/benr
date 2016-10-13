@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+
+	<resultMap id="user" type="UserRecord" > 
+		<id column="id" property="id"/> 
+		<result column="userName" property="userName"/>
+		<result column="password" property="password"/>
+		<result column="realName" property="realName"/>
+		<result column="email" property="email"/>
+		<result column="address" property="address"/>
+		<result column="mobile" property="mobile"/>
+		<result column="telephone" property="telephone"/>
+		<result column="locked" property="locked"/>
+		<result column="deleted" property="deleted"/>
+		<result column="registerDate" property="registerDate"/>
+		<result column="lastvisitDate" property="lastvisitDate"/>
+		<result column="modifyTime" property="modifyTime"/>
+		<result column="articleNum" property="articleNum"/>
+		<result column="validateCode" property="validateCode"/>
+		<result column="outDate" property="outDate"/>
+		<result column="icon" property="icon"/>
+		<result column="vipDates" property="vipDates"/>
+		<result column="visitFloder" property="visitFloder"/>
+		<result column="visitChart" property="visitChart"/>
+		<result column="groupAdmin" property="groupAdmin"/>
+		
+		<association property="role" select="findRoleByUserId" column="id" javaType="RoleRecord"></association>
+		<association property="userGroup" select="findUserGroupByPK" column="userGroupId" javaType="UserGroupRecord"></association>
+	</resultMap>
+	
+	<select id="findUserByPK" parameterType="int" resultMap="user">
+		select * from tb_user where id = #{id}#
+	</select>
+	
+	<select id="findRoleByUserId" parameterType="int" resultType="RoleRecord">
+		SELECT r.* from tb_role r where r.id = (SELECT t.role_id from tb_admin_role t where t.admin_id = #{id} limit 0,1);
+	</select>
+	
+	<insert id="insertUser" parameterType="UserRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user(userName,email,icon,
+				password,realName,telephone,mobile,locked,address,
+				deleted,registerDate,lastvisitDate,articleNum,modifyTime,vipDates,userGroupId,groupAdmin) 
+				
+			values(#{userName},#{email},#{icon},
+				#{password},#{realName},#{telephone},#{mobile},#{locked},#{address},
+				#{deleted},#{registerDate},#{lastvisitDate},#{articleNum},#{modifyTime},#{vipDates},#{userGroup.id},#{groupAdmin}) 
+	
+	</insert>
+	
+	<update id="updateUser" parameterType="UserRecord">
+		update tb_user set 
+			modifyTime=#{modifyTime},userName=#{userName},email=#{email},icon=#{icon},password=#{password},realName=#{realName},
+			telephone=#{telephone},mobile=#{mobile},locked=#{locked},address=#{address},deleted=#{deleted},
+			lastvisitDate=#{lastvisitDate},articleNum=#{articleNum},modifyTime=now(),vipDates=#{vipDates},userGroupId=#{userGroup.id}
+			,visitFloder=#{visitFloder},visitChart=#{visitChart},groupAdmin=#{groupAdmin}
+		where 
+			id = #{id}#
+	</update>
+		
+	<update id="deleteUser" parameterType="int">
+	    update tb_user set 
+			deleted = 1
+		where
+			id = #{id}
+	</update>
+	
+	<update id="batchDeleteUser" parameterType="java.util.HashMap">
+	    update tb_user set  
+			deleted = 1 
+		where 
+		id IN(
+       		<foreach item="val" index="index" collection="userIdList" separator=",">
+          		#{val}
+  			</foreach>)
+	</update>
+	
+	<select id="findUserByUserName" parameterType="String" resultMap="user">
+		select * from tb_user where userName = #{v}  and deleted = 0 
+	</select>
+	
+	<select id="findUserByEmail" parameterType="String" resultMap="user">
+		select * from tb_user where email = #{v}
+	</select>
+	
+	<select id="countUserBySearch" parameterType="java.util.HashMap" resultType="int">
+		select count(id) from tb_user as o 
+		<where>  
+		    deleted = 0 
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and o.registerTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and o.registerTime <= #{endDate}]]> 
+	        </if>
+	    </where>  
+	</select>
+	
+	<select id="countUserByPage" parameterType="java.util.HashMap" resultType="int">
+		select count(u.id) from tb_user u, tb_admin_role ar 
+		<where>  
+		    u.deleted = 0 and u.id = ar.admin_id
+			<if test="userName!=null and userName!=''">  
+	           and (u.userName like '%${userName}%')  
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and u.registerTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">   
+	           <![CDATA[and u.registerTime <= #{endDate}]]> 
+	        </if>
+	        <if test="roleId > 0">
+	            and ar.role_id = #{roleId}
+	        </if>
+	        <if test="memberType == 0">
+	        	and ar.role_id in(1,2,3)
+	        </if>
+	        <if test="memberType == 1">
+	        	and ar.role_id in(4,5)
+	        </if>
+	        <if test="userGroupId != null">
+	        	and u.userGroupId = #{userGroupId}
+	        </if>
+	    </where>
+	</select>
+	<select id="findUserByPage" parameterType="java.util.HashMap" resultMap="user">
+		select u.* from tb_user u, tb_admin_role ar 
+		<where>  
+		    u.deleted = 0 and u.id = ar.admin_id
+			<if test="userName!=null and userName!=''">  
+	           and (u.userName like '%${userName}%')  
+	        </if>
+	        <if test="startDate!=null and startDate!='' ">  
+	           <![CDATA[and u.registerTime >= #{startDate}]]> 
+	        </if>  
+	        <if test="endDate!=null and endDate!='' ">  
+	           <![CDATA[and u.registerTime <= #{endDate}]]> 
+	        </if>
+	        <if test="roleId > 0">
+	            and ar.role_id = #{roleId}
+	        </if>
+	        <if test="memberType == 0">
+	        	and ar.role_id in(1,2,3)
+	        </if>
+	        <if test="memberType == 1">
+	        	and ar.role_id in(4,5)
+	        </if>
+	        <if test="userGroupId != null">
+	        	and u.userGroupId = #{userGroupId}
+	        </if>
+	    </where>
+		<choose>
+	    	<when test="orderBy!=null and orderBy!='' ">
+	    	order by ${orderBy} ${ascdesc}
+	    	</when>
+	    	<otherwise>
+	    	ORDER BY u.id DESC
+	    	</otherwise>
+	    </choose>
+		<if test="page!=null">
+			<trim prefix="LIMIT" prefixOverrides=",">  
+           		<![CDATA[#{page.startIndex}, #{page.numPerPage} ]]>  
+        	</trim> 
+        </if>
+	</select>
+	
+	<update id="updateLoginDate" parameterType="int">
+		update tb_user set lastvisitDate=now() where id = #{id}
+	</update>
+	
+	<update id="updateArticleNum" parameterType="UserRecord">
+		update tb_user set articleNum=#{articleNum},modifyTime=NOW() where id = #{id}
+	</update>
+	
+	<update id="updateForgotPasswordInfo" parameterType="UserRecord">
+		update tb_user set 
+		validateCode=#{validateCode},outDate=#{outDate} 
+		where id = #{id}
+	</update>
+	
+	<select id="listAllUser"  resultMap="user">
+		select * from tb_user where deleted=0 order by id
+	</select>
+	
+	<select id="listUserByRoleId" parameterType="int" resultMap="user">
+		select 
+			u.* from tb_user u, tb_admin_role ar 
+		where 
+			u.id = ar.admin_id and ar.role_id = #{roleId} and u.deleted = 0
+		order by 
+			u.id desc
+	</select>
+	
+	<select id="listRecentLuruByNum" parameterType="int"  resultMap="user">
+		select DISTINCT 
+			u.* 
+		from
+			tb_user u, tb_article a, tb_admin_role r
+		where
+			u.deleted = 0 and a.deleted = 0 
+			and u.id = a.userId and u.id = r.admin_id and r.role_id = 3
+		ORDER BY
+			a.id DESC
+		LIMIT 0, #{num}
+	</select>
+	
+	<delete id="deleteRoleByUserId" parameterType="long">
+		delete from tb_admin_role where admin_id = #{v}
+	</delete>
+	
+</mapper>

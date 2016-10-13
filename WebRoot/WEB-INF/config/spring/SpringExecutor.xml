@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+		<bean id="securityExecutor" class="com.newvery.task.SecurityExecutor">
+			<property name="sqlSessionTemplate">
+				<ref bean="sqlSessionTemplate" />
+			</property>
+			<property name="transactionManager" ref="transactionManager" />
+			<!-- 和Security关联的任务监听器 -->
+			<property name="taskListeners">
+				<list>
+					<!-- <value>com.newvery.listener.OrderPaySuccessTaskListener</value>
+					<value>com.newvery.listener.OrderInsertTaskListener</value>
+					<value>com.newvery.listener.ProductInsertTaskListener</value>
+					<value>com.newvery.listener.FlowBuyListener</value>发货不成功，不直接退款
+					<value>com.newvery.listener.UserRegisterListener</value>
+					<value>com.newvery.listener.OrderRefundCompleteListener</value>
+					<value>com.newvery.listener.OrderTradeSuccessListener</value> -->
+				</list>
+			</property>
+		</bean>
+</beans>

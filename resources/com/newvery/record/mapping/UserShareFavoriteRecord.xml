@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newvery.record" >
+	
+	<resultMap id="userShareFavorite" type="UserShareFavoriteRecord" > 
+		<id column="id" property="id"/> 
+		<result column="shareUserId" property="shareUserId"/>
+		
+		<result column="parentFavoriteId" property="parentFavoriteId"/>
+		<result column="childFavoriteId" property="childFavoriteId"/>
+		<result column="createTime" property="createTime"/>
+		<result column="deleted" property="deleted"/>
+		
+		<association property="parentFavorite" select="findFavoriteByPK" column="parentFavoriteId" javaType="FavoriteRecord"></association>
+		<association property="childFavorite" select="findFavoriteByPK" column="childFavoriteId" javaType="FavoriteRecord"></association>
+	</resultMap>
+	
+	<insert id="insertuserShareFavorite" parameterType="UserShareFavoriteRecord" >
+		insert into tb_user_share_favorite 
+		(userId,parentFavoriteId,childFavoriteId,createTime,deleted,shareUserId) 
+		values
+		(#{userId},#{parentFavoriteId},#{childFavoriteId},NOW(), #{deleted},#{shareUserId})
+	</insert>
+	
+	<update id="deleteuserShareFavorite" parameterType="int">
+		delete from tb_user_share_favorite where id=#{id} 
+	</update>
+	
+	<select id="checkUserShareFavorite" parameterType="UserShareFavoriteRecord" resultType="int">
+		select count(*) from tb_user_share_favorite where userId = #{userId} and parentFavoriteId = #{parentFavoriteId} and childFavoriteId=#{childFavoriteId} and shareUserId=#{shareUserId}
+	</select>
+	
+	<select id="listShareFavoriteByUser" parameterType="long" resultMap="userShareFavorite">
+		select * from tb_user_share_favorite where userId = #{v}
+	</select>
+	
+	<select id="finduserShareFavoriteByUserIdAndChildFavoriteId" parameterType="UserShareFavoriteRecord" resultType="UserShareFavoriteRecord">
+		select * from tb_user_share_favorite where userId = #{userId} and childFavoriteId= #{childFavoriteId}
+	</select>
+</mapper>
