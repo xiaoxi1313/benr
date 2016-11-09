@@ -20,7 +20,7 @@
 	<!-- 
 	<filter>
 		<filter-name>basefilter</filter-name>
-		<filter-class>com.newvery.web.filter.BaseFilter</filter-class>
+		<filter-class>BaseFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>basefilter</filter-name> 

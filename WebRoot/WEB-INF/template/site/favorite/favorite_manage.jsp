@@ -830,7 +830,7 @@ function completeFavorite(farivoteId, completed) {
                                                   <label class="col-sm-3 control-label">上传缩略图</label>
                                                   <div class="col-sm-9">
 													 <span class="thumb-lg avatar pull-left">
-													 	<img src="/resources/common/images/placeholder-thumb.png" width="128" height="128">
+													 	<img src="//common/images/placeholder-thumb.png" width="128" height="128">
 									            	<input type="file" id="aprofileavatar" name="avatar" class="btn btn-s-md btn-default btn-rounded change-avatar  profileavatar2" />
 	                                                 </span>
                                                   </div>
